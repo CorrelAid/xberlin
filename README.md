@@ -22,4 +22,4 @@ Link to official notepad: https://pad.correlaid.org/ncl1nzxXQ0qpnW8R96CX9A?both#
 Scripts:
 
 * [Explorative Python script by Lara](https://github.com/laraschmitt/xberlin/blob/master/exploratory_regionalstatistics.py)
-* [Explorative R script](https://github.com/CorrelAid/xberlin/blob/master/R/1_data.Rmd) providing a [searchable table of all stats](https://correlaid.github.io/xberlin/xchallenge.html)
+* [Explorative R script](https://github.com/CorrelAid/xberlin/blob/master/R/1_data.Rmd) providing a [searchable table of all stats](https://correlaid.github.io/xberlin/1_data.html)
