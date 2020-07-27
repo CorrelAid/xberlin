@@ -7,9 +7,9 @@ output:
     theme: paper          ## choose theme
     highlight: kate       ## choose coding style
     toc_depth: 2          ## table of content
-    toc_float: true       ## allow toc next to doc
-    code_folding: show    ## include + show code
-    #code_folding: hide    ## include code but hide it
+    toc_float: true       ## allow toc next to doc#
+    #code_folding: show    ## include + show code
+    code_folding: hide    ## include code but hide it
     code_download: true   ## allow download of source
 editor_options:
   chunk_output_type: console
