@@ -1,0 +1,92 @@
+---
+title: "CorrelAid X Challenge"
+author: "LC Berlin"
+date: "`r Sys.Date()`"    ## current date
+output:
+  html_document:
+    theme: paper          ## choose theme
+    highlight: kate       ## choose coding style
+    toc_depth: 2          ## table of content
+    toc_float: true       ## allow toc next to doc
+    code_folding: show    ## include + show code
+    #code_folding: hide    ## include code but hide it
+    code_download: true   ## allow download of source
+editor_options:
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, fig.showtext = TRUE, fig.retina = 1)
+```
+
+```{r r-prep, message=FALSE}
+library(tidyverse)
+library(reticulate)
+library(DT)
+library(colorspace)
+library(ragg)
+
+#py_install("matplotlib")
+#py_install("datenguidepy", pip = T)
+
+theme_set(theme_minimal(base_size = 15, base_family = "Oswald"))
+```
+
+```{python py-prep}
+import os
+if not os.path.basename(os.getcwd()) == "datenguide-python":
+    os.chdir("..")
+    
+    
+from datenguidepy.query_helper import get_regions, get_statistics, get_availability_summary
+from datenguidepy import Query
+import pandas as pd
+import matplotlib.pyplot as plt
+```
+
+```{python get-stats}
+stats_names = get_statistics()
+
+# Availability
+availability = get_availability_summary()
+print(availability.shape)
+
+availability_berlin = availability[availability['region_name']=='Berlin']
+print(availability_berlin.shape)
+```
+
+```{r table-short}
+py$stats_names %>%
+  select(-long_description) %>% 
+  rownames_to_column %>% 
+  datatable(
+    rownames = F,
+    colnames = c("Statistik", "Kurzbeschreibung"),
+    class = 'cell-border stripe',
+    filter = 'top',
+    extensions = 'Buttons',
+    #options = list(
+    #  dom = 'Bfrtip',
+    #  buttons = c('copy', 'csv', 'pdf')
+    #)
+  )
+```
+
+```{r table-details}
+py$stats_names %>%
+  #select(-long_description) %>% 
+  rownames_to_column %>% 
+  datatable(
+    rownames = F,
+    colnames = c("Statistik", "Kurzbeschreibung", "Beschreibung"),
+    class = 'cell-border stripe',
+    filter = 'top',
+    extensions = 'Buttons',
+    #options = list(
+    #  dom = 'Bfrtip',
+    #  buttons = c('copy', 'csv', 'pdf')
+    #)
+  )
+```
+
+
