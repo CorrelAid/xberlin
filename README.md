@@ -16,6 +16,7 @@ Scripts:
 Resources:
 
 * [A collection of (all?!) Berlin's spatial units including districts, district areas, LORs, traffic cells, corridors, and ZIP code areas](https://lab.technologiestiftung-berlin.de/projects/spatial-units/en/)
+* [BerlinOpenData](https://daten.berlin.de/) for a range of (potentially) interesting data about Berlin
 
 ---
 
