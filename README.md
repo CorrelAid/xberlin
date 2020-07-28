@@ -2,9 +2,9 @@
 
 Link to LC notepad: https://pad.correlaid.org/CMrNZoCISn6_8UoI7fFStA?both#
 
-> **Deadline: 10.09.2020**
-> **Weekly meetings on Tuesday evening**
-> **Next meeting: August 4th, 6 pm)**
+> **Deadline: 10.09.2020**  
+> **Weekly meetings on Tuesday evening**  
+> **Next meeting: August 4th, 6 pm)**  
 
 ---
 
