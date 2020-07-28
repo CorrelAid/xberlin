@@ -126,7 +126,7 @@ df = df_results[['year', 'BEV081', 'BEV082']]
 ```
 
 ```{r plots-migration}
-migr <- as_tibble(py$df) %>% 
+df_migr <- as_tibble(py$df) %>% 
   pivot_longer(
     cols = starts_with("BEV"),
     names_to = "type",
@@ -135,13 +135,14 @@ migr <- as_tibble(py$df) %>%
   unique() %>% 
   mutate(type = if_else(type == "BEV081", "Immigration", "Emigration"))
 
-ggplot(migr, aes(year, count, color = type)) +
-  geom_step(size = 1) +
+ggplot(df_migr, aes(year, count, color = type)) +
+  geom_step(size = 1, alpha = .5) +
+  geom_point(size = 1.5) +
   scale_y_continuous(limits = c(0, NA)) +
   scale_color_manual(values = c("firebrick", "dodgerblue")) +
   labs(x = "Year", y = "Count")
 
-migr %>% 
+df_migr %>% 
   pivot_wider(
     id_cols = year,
     names_from = type,
@@ -151,7 +152,8 @@ migr %>%
   ggplot(aes(year, Difference)) +
     geom_hline(yintercept = 0) +
     geom_step(color = "darkgoldenrod2", size = 1) +
-  labs(x = "Year", y = "Immigration - Emigration")
+    geom_point(color = "darkgoldenrod2", size = 1.5) +
+    labs(x = "Year", y = "Immigration - Emigration")
 ```
 
 ## Query Statistics Car Accidents
@@ -177,7 +179,7 @@ df = df_results[['year', 'AI1303', 'AI1302']]
 ```
 
 ```{r plot-car-accidents}
-kfz <- as_tibble(py$df) %>% 
+df_cars <- as_tibble(py$df) %>% 
   pivot_longer(
     cols = starts_with("AI"),
     names_to = "type",
@@ -186,8 +188,9 @@ kfz <- as_tibble(py$df) %>%
   unique() %>% 
   mutate(type = if_else(type == "AI1303", "per 10.000 Kfz", "per 100.000 inhabitants"))
 
-ggplot(kfz, aes(year, count, color = type)) +
+ggplot(df_cars, aes(year, count, color = type)) +
   geom_step(size = 1) +
+  geom_point(size = 1.5) +
   scale_y_continuous(limits = c(0, NA)) +
   scale_color_manual(values = c("firebrick", "orange")) +
   labs(x = "Year", y = "Number of Car Accidents")
