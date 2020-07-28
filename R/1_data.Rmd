@@ -51,6 +51,9 @@ import matplotlib.pyplot as plt
 ```
 
 ```{python info-stats}
+r = get_regions().query("level == 'nuts3'")
+print(r[(r['name']=='Berlin')])
+
 stats_names = get_statistics()
 
 # Availability
@@ -82,7 +85,6 @@ py$stats_names %>%
 
 ```{r table-details}
 py$stats_names %>%
-  #select(-long_description) %>% 
   rownames_to_column %>% 
   datatable(
     rownames = F,
@@ -101,6 +103,9 @@ py$stats_names %>%
 
 ```{python stats-migration}
 q = Query.region('11')
+
+stat = q.add_field("BEV081")
+stat.get_info()
 
 q.add_field('BEV081') # Wanderungsstatistik Zuzuege
 q.add_field('BEV082')
@@ -159,7 +164,7 @@ df_migr %>%
 ## Query Statistics Car Accidents
 
 ```{python stats-car-accidents}
-q = Query.region('110')
+q = Query.region('11')
 
 q.add_field('AI1302') # Verkehrsunfälle
 q.add_field('AI1303')
@@ -172,6 +177,7 @@ for col in df_results.columns:
     print(col)
 
 # print head of dataframe
+print(df_results.columns)
 print(df_results.head(10).iloc[:,:7])
 
 # extract relevant columns

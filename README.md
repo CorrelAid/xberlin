@@ -4,7 +4,7 @@ Link to LC notepad: https://pad.correlaid.org/CMrNZoCISn6_8UoI7fFStA?both#
 
 > **Deadline: 10.09.2020**
 > **Weekly meetings on Tuesday evening**
-
+> **Next meeting: August 4th, 6 pm)**
 
 ---
 
@@ -16,7 +16,6 @@ Scripts:
 Resources:
 
 * [A collection of (all?!) Berlin's spatial units including districts, district areas, LORs, traffic cells, corridors, and ZIP code areas](https://lab.technologiestiftung-berlin.de/projects/spatial-units/en/)
-
 
 ---
 
@@ -32,7 +31,33 @@ Resources:
 * Think about possible projects/topics
 * Make yourself familiar with Python usage/data import etc.
 
+#
 
 ### Meeting July 28th
+
+
+&rarr; Participants: Andreas, Cédric, Michael & Saleh
+
+**Ideas:**
+
+* Urban agriculture *(Saleh)*
+* Green spaces (#/area) in Berlin *(Michael)*
+* Bike lanes and car accidents *(Andreas)*
+* Living versus non-living space & rental prices *(Cédric)*
+* (Movement of young people to Berlin (East/West))
+* (East/West comparison in general)
+
+
+**Next steps:**
+
+* **Explore the datasets in more detail via `datenguidepy`** (own Rmd script, Jupyter notebook, Laras or Cédric's scripts...)
+* **Search for additional resources** (one requirement—or a "nice-tohave"—acoording to the rules are external data)
+* **Check news, articles, studies on that topic** for...
+  + interesting findings/patterns/stories in other cities
+  + detailed reports for Berlin on the same topic (might either help or let's us discard the idea)
+
+#
+
+### Meeting August 4th
 
 &rarr; 6 pm via Jitsi: https://meet.jit.si/static/dialInInfo.html?room=xchallengeberlin
