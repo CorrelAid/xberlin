@@ -53,7 +53,7 @@ Link to LC notepad: https://pad.correlaid.org/CMrNZoCISn6_8UoI7fFStA?both#
 1) Report possible or not - what's needed to make it work?
 1) Digitalized data of bike lane quality before/after plus filtered data for these streets/areas
 
-##### h5
+#
 
 ### Potential Topics:
 
