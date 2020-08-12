@@ -40,6 +40,8 @@ theme_update(legend.position = "top")
 for the years 2016 to 2019 for all Germany except Mecklenburg-Vorpommern (at least what we expect from the [interactive web map](https://unfallatlas.statistikportal.de/))
 
 
+## IMPORT DATA
+
 ```{r}
 ## links to .csv .zip files
 links <- c(
@@ -84,6 +86,8 @@ df <-
 
 For the years 2016 to 2019, there are {nrow(df)} observations of all types of accidents with persons being injured ("Unfall mit Personenschaden").
 
+## TRANSLATION
+
 ```{r}
 ## trnslation of column headers
 ## metadata: https://www.opengeodata.nrw.de/produkte/transport_verkehr/unfallatlas/DSB_Unfallatlas.pdf
@@ -123,6 +127,9 @@ rds <- here("data", "unfallatlas_eng.Rds")
 if(!file.exists(rds)) { write_rds(df_eng, rds)}
 ```
 
+
+## BERLIN BIKE ACCIDENT DATA
+
 ```{r}
 ## Berlin and bike accidents only
 df_bln_bikes <-
@@ -134,5 +141,14 @@ df_bln_bikes <-
 
 rds <- here("data", "unfallatlas_eng_berlin_bikes.Rds")
 if(!file.exists(rds)) { write_rds(df_bln_bikes, rds)}
+```
+
+
+## DATA EXPLORATION
+
+```{r}
+df_bln_bikes %>% 
+  group_by(year) %>% 
+  count()
 ```
 
