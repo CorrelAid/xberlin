@@ -4,4 +4,4 @@
 .Ruserdata
 
 ## data for Germany and all accidents by Unfallatlas is largn than 100MB
-./data/unfallatlas_eng.Rds
+data/unfallatlas_eng.Rds
