@@ -29,17 +29,17 @@ Link to LC notepad: https://pad.correlaid.org/CMrNZoCISn6_8UoI7fFStA?both#
 #
 
 ### @Cédric:
-* Import and investigate Unfallatlas data
-* Visualize temporal and spatial patterns
+* ✅ Import and investigate Unfallatlas data
+* ✅ Visualize temporal and spatial patterns
 
 &rarr; *best case:* many data points across several timeperiods (daytime, weekday/end, months, years) and areas
 
 #### Product ASAP:
-* Unfallatlas data for Berlin (script + data, e.g. as Rds, on GitHub)
+* ✅ Unfallatlas data for Berlin (script + data, e.g. as Rds, on GitHub)
 
 #### Product next week:
-1) Unfallatlas data for Berlin (script + data, e.g. as Rds, on GitHub)
-1) Visualizations for Berlin (script + report/images on GitHub)
+1) ✅ Unfallatlas data for Berlin (script + data, e.g. as Rds, on GitHub)
+1) ✅ Visualizations for Berlin (script + report/images on GitHub)
 
 
 #
@@ -79,10 +79,6 @@ Link to LC notepad: https://pad.correlaid.org/CMrNZoCISn6_8UoI7fFStA?both#
 * [Unfallatlas data](https://unfallatlas.statistikportal.de/_opendata2020.html) for detailled Berlin data
 * [Improved bike lanes in Berlin by InfraVelo](https://www.infravelo.de/projektarten/gruenbeschichtungen/) with before-after pictures
 * [FixMyBerlin Survey Data (21,000 participants about risk perception of different bike lane setups)](https://fixmyberlin.de/research/subjektive-sicherheit#datensatz-der-ergebnisse)
-
-## Ideas
-
-*
 
 ## Resources
 
