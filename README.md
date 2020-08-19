@@ -10,50 +10,53 @@ Link to LC notepad: https://pad.correlaid.org/CMrNZoCISn6_8UoI7fFStA?both#
 
 ## Next Steps
 
-### @all:
-* Discuss main topic - what do we answer with our analysis and vis?
-* Static or interactive? (depends mostly on time left)
+### ✦ Collect accident data for several cities with `datenguidepy`
+* **Main goal: Comparison of accidents (maybe also traffic?) of different large cities**
+* Problem: `datenguidepy` provides these stats but each combination of stat and city has to be queried. To work efficiently and visulaize the data all together, we need all relvant stats for chosen cities in one dataframe.
+* Task: Create one final dataset with all 6 cities and several statistics in one dataframe (script and data file, e.g. as Rds, on GitHub)
+    * Stats: accidents with injuries per x cars/x inhabitants and year
+    * Cities: 5 largest cities with regard to population besides Berlin in Germany: Berlin, Hamburg, Munich, Cologne, Frankfurt (Main) and Stuttgart)
+
+***&rarr; Saleh, with the help of Cédric if needed***
 
 #
 
-### @Saleh:
-* Explore data availabilty of bike accidents per year for different cities (largest cities in Germany and/or Brandenburg) with `datenguidepy`
-* Visualize the findings (e.g. bar chart or slope chart of cases per x inhabitants per city over time) *(if you need help/have no time don't hesitate to let us know)*
+### ✦ Visualize accident data for several cities
+* **Main goal: Comparison of accidents (maybe also traffic?) of different large cities**
+* Task: Visualizations of summary stats as comparison between cities and years (script and report/images on GitHub)
 
-&rarr; *best case:* several cities with several and recent years overlapping
-
-#### Product next week:
-1) Summary data for several cities and years (script and data files, e.g. as Rds, on GitHub)
-1) Visualizations of summary stats for several cities and years (script and report/images on GitHub)
+***&rarr; Saleh & Cédric***
 
 #
 
-### @Cédric:
-* ✅ Import and investigate Unfallatlas data
-* ✅ Visualize temporal and spatial patterns
+### ✦ Find traffic data to estimates rates
+* **Main goal: Comparison of accidents per x road users for different areas/bike lane types**
+* Problem: Unfallatlas provides absolute numbers—however, if we want to compare different bike lane types we need somehow to acocunt for the traffic (#accidents / #cyclist). We have some traffic data on motorised vehicles from 2014 ([link](https://data.technologiestiftung-berlin.de/dataset/verkehrsmengen)) but more detailed data on all types of road users would be good
+* Task: Search for other traffic data for Berlin, in the best case recent and including bikes
 
-&rarr; *best case:* many data points across several timeperiods (daytime, weekday/end, months, years) and areas
-
-#### Product ASAP:
-* ✅ Unfallatlas data for Berlin (script + data, e.g. as Rds, on GitHub)
-
-#### Product next week:
-1) ✅ Unfallatlas data for Berlin (script + data, e.g. as Rds, on GitHub)
-1) ✅ Visualizations for Berlin (script + report/images on GitHub)
-
+***&rarr; Andreas & Cédric, with feedback from others***
 
 #
 
-### @Andreas:
-* Explore data availability and mergeability for before-after bike lane improvement (main focus: Unfallatlas - if not: PDF? Other BerlinOpenData Portal? other?) *(if you need help/some discussion don't hesitate to let us know)*
+### ✦ Merge geodata with roads *(only if suitable traffic data available)*
+* **Main goal: Comparison of accidents per x road users for different areas/bike lane types**
+* Problem: The Unfallatlas data contains geolocations (lat/long) while the bike lane data is based on roads
+* Task: Match the geolocations to the (closest) road and extract number of acidents per road, area, and bike lane type.
 
-&rarr; *best case:* several bike accidents available for several lanes before and after the improvement
-
-#### Product next week:
-1) Report possible or not - what's needed to make it work?
-1) Digitalized data of bike lane quality before/after plus filtered data for these streets/areas
+***&rarr; Andreas, with the help of Cédric if needed***
 
 #
+
+### ✦ Visualize accidents (absolute or relative)
+* **Main goal: Comparison of accidents per x road users for different areas/bike lane types**
+* Task: Depending on the suitable traffic data we either
+    * show simply bike lane types and absolute numbers of accidents (thus no need to match geolocations to rads) + hotspots + (number of accidents per district?)
+    * show relative risk of bike accidents + additional charts comparing relative rik per bike lane type, district, ...  
+    * Match the geolocations to the (closest) road and extract number of acidents per road, area, and bike lane type.
+
+***&rarr; Andreas & Cédric***
+
+---
 
 ### Potential Topics:
 
@@ -77,6 +80,9 @@ Link to LC notepad: https://pad.correlaid.org/CMrNZoCISn6_8UoI7fFStA?both#
 
 * [`datenguidepy`](https://github.com/CorrelAid/datenguide-python) the dataset XY for comparison of big cities Germany-wide (or just Brandenburg?)
 * [Unfallatlas data](https://unfallatlas.statistikportal.de/_opendata2020.html) for detailled Berlin data
+* [Unfallschwerpunkte ('accident hotspots') by Berlin Police](https://www.berlin.de/polizei/_assets/aufgaben/anlagen-verkehrssicherheit/pkverkehrssicherheitslage2018.pdf) ![](https://i.imgur.com/E6G95RS.png)
+* [Traffic data for motorised vehicles](https://data.technologiestiftung-berlin.de/dataset/verkehrsmengen) from 2014
+* [Reports on bike accidents by Berlin Police](https://www.berlin.de/polizei/_assets/aufgaben/anlagen-verkehrssicherheit/radfahrer2018.pdf) ([all reports under section "Radfahrer"](https://www.berlin.de/polizei/aufgaben/verkehrssicherheit/verkehrsunfallstatistik/))
 * [Improved bike lanes in Berlin by InfraVelo](https://www.infravelo.de/projektarten/gruenbeschichtungen/) with before-after pictures
 * [FixMyBerlin Survey Data (21,000 participants about risk perception of different bike lane setups)](https://fixmyberlin.de/research/subjektive-sicherheit#datensatz-der-ergebnisse)
 
@@ -96,6 +102,7 @@ Link to LC notepad: https://pad.correlaid.org/CMrNZoCISn6_8UoI7fFStA?both#
 * [Unfallatlas by Destatis](https://unfallatlas.statistikportal.de/)
 * [CartoDB Berlin Map by Stefan Wehrmeyer](https://stefanwehrmeyer.carto.com/viz/4fc39e13-8dbb-4d3f-a181-b2918861b6de/public_map)
 * [FixMyBerlin Survey Data (21,000 participants about risk perception of different bike lane setups)](https://fixmyberlin.de/research/subjektive-sicherheit#datensatz-der-ergebnisse)
+* [Reports on accidents by Berlin Police](https://www.berlin.de/polizei/aufgaben/verkehrssicherheit/verkehrsunfallstatistik/)
 
 
 **Other reports, studies, visualizations on accidents and bike Lanes:**
@@ -199,10 +206,62 @@ In general
 
 &rarr; Participants: Andreas, Cédric & Saleh
 
-* see "Next Steps" on top for now
+#### Main Idea:
+* Accidents of cyclist in relation to bike lane types
+    * Part 1: Overall comparison between cities Germany wide to include `datenguidepy`
+    * Part 2: Static or interactive map of bike lane type and accidents + hotspots
+
+#### General Updates:
+* Still to fix some issues with Python and detailled data
+* Do we really need to digitalize the reports from the Berlin Police Department? &rarr; Let's try to use the Unfallatlas data first
+* Please upload all scripts and output on GitHub and actively engage in discussions on Slack
+
+#### Open questions:
+* Discuss main topic - what do we answer with our analysis and vis?
+* Static or interactive? (depends mostly on time left)
+* Do we need more data?
+
+#### Next Steps:
+* Explore data availability of bike accidents per year for different cities (largest cities in Germany and/or Brandenburg) with `datenguidepy` ***&rarr; Saleh***
+* Visualize the findings (e.g. bar chart or slope chart of cases per x inhabitants per city over time) ***&rarr; Saleh*** *(if you need help/have no time don't hesitate to let us know)*
+* Import and investigate Unfallatlas data ***&rarr; Cédric***
+* Visualize temporal and spatial patterns ***&rarr; Cédric***
+* Explore data availability and mergeability for before-after bike lane improvement (main focus: Unfallatlas - if not: PDF? Other BerlinOpenData Portal? other?) ***&rarr; Andreas*** *(if you need help/some discussion don't hesitate to let us know)*
+* Digitalize data of bike lane quality before/after plus filtered data for these streets/areas ***&rarr; Andreas***
 
 #
 
 ### Meeting August 18th
 
-&rarr; 5:30 pm via Zoom: Link TBA
+&rarr; 5:30 pm via Zoom
+
+&rarr; Participants: Andreas, Cédric & Saleh
+
+#### Main Idea (same as before):
+* Accidents of cyclist in relation to bike lane types
+    * Part 1: Overall comparison between cities Germany wide to include `datenguidepy`
+    * Part 2: Static or interactive map of bike lane type and accidents + hotspots
+
+#### General Updates:
+* Andreas:
+    * Shiny map showing bike lane types in Berlin works locally but problems on server ![](https://i.imgur.com/0O6fR9T.jpg)
+    * Still searching for a way/someone to digitalize the Police reports &rarr; very coarse so we decided for now to NOT use this source anyway
+    * To say anything about how good or bad specific bike lane types are we need to acocunt for several factors &rarr; actually time of the day and year may not be a problem since we have the same data quality for all areas butg wse should definitely account for traffic
+    * So far we only have traffic daat for motorised vehicles from 2014; some including bikes (and maybe even pedestriants) would be nice!
+    * If we find proper treaffic data, we need to find the road for each geolocation in the Unfallatlas data to match the accident with the bike lane type
+    * If we can't accoutn for traffic we anyway can only show aboslute nubmers and no details are probably needed (only for interaoctive so people can filter by different bike lane type?)
+* Cédric:
+    * Unfallatlas data available for everyone on GitHub, first visulaizations of trends ![](https://i.imgur.com/38PhYEZ.png)![](https://i.imgur.com/UtlMgL1.png)![](https://i.imgur.com/IAnIrMh.png)
+    * For Berlin, there are unfortunately only 2 years (2018 and 2019) with roughly 5.000 accidents involving bikes per year
+* Saleh:
+    * Problems with saving csv solved &rarr; still would be cool to get reticulate to work so we can access the data directly from the `datenguidypy` package!
+    * First example visualizatiosn for Saarland on GitHub ![](https://i.imgur.com/XEpkqF5.png) ![](https://i.imgur.com/aX3ZA8J.png) ![](https://i.imgur.com/ZYj4tqS.png)
+    * We need data for largest cities not federal states &rarr; decided to use 5 largest cities by population to compare with Berlin; this includes 6 different federal states in different directions of Germany as well as the two most populated cities (Munich and Berlin) ([Wiki link](https://en.wikipedia.org/wiki/List_of_cities_in_Germany_by_population))![](https://i.imgur.com/UxMNXwU.png)
+
+* also see next stepsd on top!
+
+#
+
+### Mext Meeting: August 18th
+
+&rarr; 6 pm via Zoom
