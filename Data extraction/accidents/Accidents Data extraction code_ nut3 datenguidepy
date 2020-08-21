@@ -1,0 +1,187 @@
+##Here is command lines on how to extract data from cities thus (nut3) from datenguidepy, unfortunately the data is so big that it's not ##possible to extract all types of "accidents data" simultaneously, thus it's obligatory to extract them individually
+
+
+#getting data about Accidents total accidents
+
+from datenguidepy.query_builder import Query
+from datenguidepy.query_helper import get_regions
+
+region_codes = get_regions().query('level == "nuts3"').name
+region_codes
+
+region_query = Query.region(list(region_codes.index))
+region_query.add_field('VER001') # Accidents (total)
+
+# Get the results for the query
+results = region_query.results()
+
+# Preview the first data rows
+display(results.head())
+
+#Saving data to csv
+results.to_csv("Accidents_Total_nuts3.csv")
+
+
+
+
+
+
+# Getting data about Accidents involving personal injury
+from datenguidepy.query_builder import Query
+from datenguidepy.query_helper import get_regions
+
+region_codes = get_regions().query('level == "nuts3"').name
+region_codes
+
+region_query = Query.region(list(region_codes.index))
+region_query.add_field('VER002') # Accidents involving personal injury
+
+# Get the results for the query
+results = region_query.results()
+
+# Preview the first data rows
+display(results.head())
+
+#Saving data to csv
+results.to_csv("Accidents_Injury_nuts3.csv")
+
+
+
+
+#Getting data about Serious accidents involving property damage i.e.S.
+from datenguidepy.query_builder import Query
+from datenguidepy.query_helper import get_regions
+
+region_codes = get_regions().query('level == "nuts3"').name
+region_codes
+
+region_query = Query.region(list(region_codes.index))
+region_query.add_field('VER005') # Serious accidents involving property damage i.e.S.
+
+# Get the results for the query
+results = region_query.results()
+
+# Preview the first data rows
+display(results.head())
+
+#Saving data to csv
+results.to_csv("Accidents_PropertyDamage_nuts3.csv")
+
+
+
+
+
+# Getting data about Serious accidents involving material damage
+from datenguidepy.query_builder import Query
+from datenguidepy.query_helper import get_regions
+
+region_codes = get_regions().query('level == "nuts3"').name
+region_codes
+
+region_query = Query.region(list(region_codes.index))
+region_query.add_field('VER056') # Serious accidents involving material damage
+
+# Get the results for the query
+results = region_query.results()
+
+# Preview the first data rows
+display(results.head())
+
+#Saving data to csv
+results.to_csv("Accidents_MaterialDamage_nuts3.csv")
+
+
+
+
+
+
+# Getting data about Road traffic accidents per 10,000 motor vehicles
+from datenguidepy.query_builder import Query
+from datenguidepy.query_helper import get_regions
+
+region_codes = get_regions().query('level == "nuts3"').name
+region_codes
+
+region_query = Query.region(list(region_codes.index))
+region_query.add_field('AI1303') # Road traffic accidents per 10,000 motor vehicles
+
+# Get the results for the query
+results = region_query.results()
+
+# Preview the first data rows
+display(results.head())
+
+#Saving data to csv
+results.to_csv("Accidents_Per10000Motor_nuts3.csv")
+
+
+
+# getting data about Road accidents per 10,000 population
+from datenguidepy.query_builder import Query
+from datenguidepy.query_helper import get_regions
+
+region_codes = get_regions().query('level == "nuts3"').name
+region_codes
+
+region_query = Query.region(list(region_codes.index))
+region_query.add_field('AI1302') # Road accidents per 10,000 population
+
+# Get the results for the query
+results = region_query.results()
+
+# Preview the first data rows
+display(results.head())
+
+#Saving data to csv
+results.to_csv("Accidents_Per10000_nuts3.csv")
+
+
+
+
+#Getting data about Killed in road accidents per 100,000 EW
+from datenguidepy.query_builder import Query
+from datenguidepy.query_helper import get_regions
+
+region_codes = get_regions().query('level == "nuts3"').name
+region_codes
+
+region_query = Query.region(list(region_codes.index))
+region_query.add_field('AI1304') # Killed in road accidents per 100,000 EW
+
+# Get the results for the query
+results = region_query.results()
+
+# Preview the first data rows
+display(results.head())
+
+#Saving data to csv
+results.to_csv("Accidents_KilledPer100000_nuts3.csv")
+
+
+
+
+#Getting data about Injured in road traffic accidents per 100.000EW
+from datenguidepy.query_builder import Query
+from datenguidepy.query_helper import get_regions
+
+region_codes = get_regions().query('level == "nuts3"').name
+region_codes
+
+region_query = Query.region(list(region_codes.index))
+region_query.add_field('AI1305') # Injured in road traffic accidents per 100.000EW
+
+# Get the results for the query
+results = region_query.results()
+
+# Preview the first data rows
+display(results.head())
+
+#Saving data to csv
+results.to_csv("Accidents_InjuredPer100000_nuts3.csv")
+
+
+
+
+
+
+
