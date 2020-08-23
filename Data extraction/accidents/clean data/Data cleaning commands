@@ -1,0 +1,68 @@
+#Selecting the useful columns and deletes others
+AI13053_df1 <- select(Accidents_InjuredPer100000_nuts3, id, name, year, AI1305)
+
+VER002_df1 <- select(Accidents_Injury_nuts3, id, name, year, VER002)
+
+AI1304_df1 <- select(Accidents_KilledPer100000_nuts3, id, name, year, AI1304)
+
+VER056_df1 <- select(Accidents_MaterialDamage_nuts3, id, name, year, VER056)
+
+AI1302_df1 <- select(Accidents_Per10000_nuts3, id, name, year, AI1302)
+
+AI1303_df1 <- select(Accidents_Per10000Motor_nuts3, id, name, year, AI1303)
+
+VER005_df1 <- select(Accidents_PropertyDamage_nuts3, id, name, year, VER005)
+
+VER001_df1 <- select(Accidents_Total_nuts3, id, name, year, VER001)
+
+#Remove duplicated rows
+AI13053_df2 <- AI13053_df1[!duplicated(AI13053_df1), ] 
+
+VER002_df2 <- VER002_df1[!duplicated(VER002_df1), ] 
+
+AI1304_df2 <- AI1304_df1[!duplicated(AI1304_df1), ]
+
+VER056_df2 <- VER056_df1[!duplicated(VER056_df1), ]
+
+AI1302_df2 <- AI1302_df1[!duplicated(AI1302_df1), ]
+
+AI1303_df2 <- AI1303_df1[!duplicated(AI1303_df1), ]
+
+VER005_df2 <- VER005_df1[!duplicated(VER005_df1), ]
+
+VER001_df2 <- VER001_df1[!duplicated(VER001_df1), ]
+
+#creating a list for the cities that we are interested in (Top most populated)
+City_Ids <- c("11000", "2000", "9162", "9184", "5315", "12053", "6412", "8111")
+
+#Filtering out rhe cities that we are interested in (Top most populated)
+AI13053_df3 <- filter(AI13053_df2, id %in% City_Ids)
+
+VER002_df3 <- filter(VER002_df2, id %in% City_Ids)
+
+AI1304_df3 <- filter(AI1304_df2, id %in% City_Ids)
+
+VER056_df3 <- filter(VER056_df2, id %in% City_Ids)
+
+AI1302_df3 <- filter(AI1302_df2, id %in% City_Ids)
+
+AI1303_df3 <- filter(AI1303_df2, id %in% City_Ids)
+
+VER005_df3 <- filter(VER005_df2, id %in% City_Ids)
+
+VER001_df3 <- filter(VER001_df2, id %in% City_Ids)
+
+#Join Columns
+JoinAI1 <- full_join(AI1302_df3,AI1303_df3)
+
+JoinAI2 <- full_join(JoinAI1, AI1304_df3)
+
+JoinAI3 <- full_join(JoinAI2, AI13053_df3)
+
+JoinVER1 <- full_join(VER001_df3, VER002_df3)
+
+JoinVER2 <- full_join(JoinVER1, VER005_df3)
+
+JoinVER3 <- full_join(JoinVER2, VER056_df3)
+
+
