@@ -1,6 +1,6 @@
 ---
 title: "CorrelAid X Challenge: Import and Clean Unfallatlas Data"
-author: "LC Berlin"
+author: "Cédric Scherer"
 date: "`r Sys.Date()`"    ## current date
 output:
   html_document:
@@ -259,7 +259,7 @@ df_bln_bikes %>%
     ggsave(here("plots", "accidents_month_year_line.pdf"), width = 10, height = 7, device = cairo_pdf)
 ```
 
-```{r accidents-per-hour, fig.width = 10, fig.height = 7}
+```{r accidents-per-month, fig.width = 10, fig.height = 7}
 df_bln_bikes %>% 
   count(month_lab) %>% 
   ggplot(aes(month_lab, n, group = 1)) +

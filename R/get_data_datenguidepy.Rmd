@@ -1,6 +1,6 @@
 ---
-title: "CorrelAid X Challenge"
-author: "LC Berlin"
+title: "CorrelAid X Challenge: Get Accident Data for Major Cities in Germany via datenguidepy"
+author: "Cédric Scherer"
 date: "`r Sys.Date()`"    ## current date
 output:
   html_document:
@@ -17,7 +17,7 @@ editor_options:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
-  echo = TRUE, warning = FALSE, 
+  echo = TRUE, warning = FALSE,
   fig.showtext = TRUE, fig.retina = 1,
   fig.width = 10, fig.height = 7.5
 )
@@ -27,8 +27,6 @@ knitr::opts_chunk$set(
 library(tidyverse)
 library(reticulate)
 library(DT)
-library(colorspace)
-library(ragg)
 
 #py_install("matplotlib")
 #py_install("datenguidepy", pip = T)
@@ -61,7 +59,7 @@ print(availability.shape)
 
 ## Browse Statistics
 
-```{r table-short}
+```{r table-short, include = F}
 py$stats_names %>%
   select(-long_description) %>% 
   rownames_to_column %>% 
@@ -94,7 +92,7 @@ py$stats_names %>%
   )
 ```
 
-## Query Statistics Migration
+## Query Statistics Accidents + some info on cities (pop, dens, cars)
 
 ```{python stats-migration}
 q = Query.region(['11000', '14612', '14713', '02000', '04011', '05111', '05113', '05315', '05913', '06412', '08111', '09162'])
@@ -119,23 +117,20 @@ q.add_field('VER056')  ## Schwerwiegende Unfälle mit Sachschaden
 df_results = q.results(add_units=True)
 
 # print column names
-for col in df_results.columns:
-    print(col)
+#for col in df_results.columns:
+#    print(col)
 
 # print head of dataframe
 #print(df_results.head(10).iloc[:,:7])
 
 # extract relevant columns
 df = df_results[['name', 'id', 'year', 'BEV016', 'AI0201', 'AI0113', 'AI1301', 'AI1302', 'AI1303', 'AI1304', 'AI1305', 'VER001', 'VER002', 'VER005', 'VER056']]
-
-# exploratory line plots
-# df_subplot = df.plot.line(x='year', y='BEV081', c='Green', label='Zuwanderung')
-# df.plot.line(x='year', y='BEV082', c='Red', label='Abwanderung', ax=df_subplot)
-# 
-# plt.show()
 ```
 
-```{r plots-migration}
+
+## Data Cleaning
+
+```{r clean-data}
 df_stats <- 
   as_tibble(py$df) %>% 
   ## remove duplicated rows
@@ -182,5 +177,17 @@ df_stats <-
     )
   )
 
-write_rds(df_stats, path = here::here("2020_CorrelAidXChallenge", "xberlin", "data", "datenguidepy_accidents.Rds"))
+write_rds(df_stats, path = here::here("data", "datenguidepy_accidents.Rds"))
 ```
+
+***
+
+<details><summary>Session Info</summary>
+
+```{r sessionInfo, echo = F}
+Sys.time()
+git2r::repository()
+sessionInfo()
+```
+
+</details>
