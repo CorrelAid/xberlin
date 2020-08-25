@@ -1,0 +1,203 @@
+---
+title: "CorrelAid X Challenge"
+author: "LC Berlin"
+date: "`r Sys.Date()`"    ## current date
+output:
+  html_document:
+    theme: paper          ## choose theme
+    highlight: kate       ## choose coding style
+    toc_depth: 2          ## table of content
+    toc_float: true       ## allow toc next to doc#
+    code_folding: show    ## include + show code
+    #code_folding: hide    ## include code but hide it
+    code_download: true   ## allow download of source
+editor_options:
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE, warning = FALSE, 
+  fig.showtext = TRUE, fig.retina = 1,
+  fig.width = 10, fig.height = 7.5
+)
+```
+
+```{r r-prep, message=FALSE}
+library(tidyverse)
+library(reticulate)
+library(DT)
+library(colorspace)
+library(ragg)
+
+#py_install("matplotlib")
+#py_install("datenguidepy", pip = T)
+
+theme_set(theme_minimal(base_size = 15, base_family = "Oswald"))
+
+theme_update(legend.position = "top")
+```
+
+```{python py-prep}
+import os
+if not os.path.basename(os.getcwd()) == "datenguide-python":
+    os.chdir("..")
+    
+    
+from datenguidepy.query_helper import get_regions, get_statistics, get_availability_summary
+from datenguidepy import Query
+import pandas as pd
+import matplotlib.pyplot as plt
+```
+
+```{python info-stats}
+r = get_regions().query("level == 'nuts3'")
+print(r[(r['name']=='Berlin')])
+
+stats_names = get_statistics()
+
+# Availability
+availability = get_availability_summary()
+print(availability.shape)
+
+availability_berlin = availability[availability['region_name']=='Berlin']
+print(availability_berlin.shape)
+```
+
+## Browse Statistics
+
+```{r table-short}
+py$stats_names %>%
+  select(-long_description) %>% 
+  rownames_to_column %>% 
+  datatable(
+    rownames = F,
+    colnames = c("Statistik", "Kurzbeschreibung"),
+    class = 'cell-border stripe',
+    filter = 'top',
+    extensions = 'Buttons',
+    #options = list(
+    #  dom = 'Bfrtip',
+    #  buttons = c('copy', 'csv', 'pdf')
+    #)
+  )
+```
+
+```{r table-details}
+py$stats_names %>%
+  rownames_to_column %>% 
+  datatable(
+    rownames = F,
+    colnames = c("Statistik", "Kurzbeschreibung", "Beschreibung"),
+    class = 'cell-border stripe',
+    filter = 'top',
+    extensions = 'Buttons',
+    #options = list(
+    #  dom = 'Bfrtip',
+    #  buttons = c('copy', 'csv', 'pdf')
+    #)
+  )
+```
+
+## Query Statistics Migration
+
+```{python stats-migration}
+q = Query.region('11')
+
+stat = q.add_field("BEV081")
+stat.get_info()
+
+q.add_field('BEV081') # Wanderungsstatistik Zuzuege
+q.add_field('BEV082')
+
+# get the results as a Pandas DataFrame
+df_results = q.results(add_units=True)
+
+# print column names
+for col in df_results.columns:
+    print(col)
+
+# print head of dataframe
+print(df_results.head(10).iloc[:,:7])
+
+# extract relevant columns
+df = df_results[['year', 'BEV081', 'BEV082']]
+
+# exploratory line plots
+# df_subplot = df.plot.line(x='year', y='BEV081', c='Green', label='Zuwanderung')
+# df.plot.line(x='year', y='BEV082', c='Red', label='Abwanderung', ax=df_subplot)
+# 
+# plt.show()
+```
+
+```{r plots-migration}
+df_migr <- as_tibble(py$df) %>% 
+  pivot_longer(
+    cols = starts_with("BEV"),
+    names_to = "type",
+    values_to = "count"
+  ) %>% 
+  unique() %>% 
+  mutate(type = if_else(type == "BEV081", "Immigration", "Emigration"))
+
+ggplot(df_migr, aes(year, count, color = type)) +
+  geom_step(size = 1, alpha = .5) +
+  geom_point(size = 1.5) +
+  scale_y_continuous(limits = c(0, NA)) +
+  scale_color_manual(values = c("firebrick", "dodgerblue")) +
+  labs(x = "Year", y = "Count")
+
+df_migr %>% 
+  pivot_wider(
+    id_cols = year,
+    names_from = type,
+    values_from = count
+  ) %>% 
+  mutate(Difference = Immigration - Emigration) %>% 
+  ggplot(aes(year, Difference)) +
+    geom_hline(yintercept = 0) +
+    geom_step(color = "darkgoldenrod2", size = 1) +
+    geom_point(color = "darkgoldenrod2", size = 1.5) +
+    labs(x = "Year", y = "Immigration - Emigration")
+```
+
+## Query Statistics Car Accidents
+
+```{python stats-car-accidents}
+q = Query.region('11')
+
+q.add_field('AI1302') # Verkehrsunfälle
+q.add_field('AI1303')
+
+# get the results as a Pandas DataFrame
+df_results = q.results(add_units=True)
+
+# print column names
+for col in df_results.columns:
+    print(col)
+
+# print head of dataframe
+print(df_results.columns)
+print(df_results.head(10).iloc[:,:7])
+
+# extract relevant columns
+df = df_results[['year', 'AI1303', 'AI1302']]
+```
+
+```{r plot-car-accidents}
+df_cars <- as_tibble(py$df) %>% 
+  pivot_longer(
+    cols = starts_with("AI"),
+    names_to = "type",
+    values_to = "count"
+  ) %>% 
+  unique() %>% 
+  mutate(type = if_else(type == "AI1303", "per 10.000 Kfz", "per 100.000 inhabitants"))
+
+ggplot(df_cars, aes(year, count, color = type)) +
+  geom_step(size = 1) +
+  geom_point(size = 1.5) +
+  scale_y_continuous(limits = c(0, NA)) +
+  scale_color_manual(values = c("firebrick", "orange")) +
+  labs(x = "Year", y = "Number of Car Accidents")
+```
