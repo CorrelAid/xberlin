@@ -87,60 +87,26 @@ mapview(rad, zcol="type")
 
 ```{r}
 ## accident data
-bike19 <- 
-  read_sf(dsn = "https://raw.githubusercontent.com/tagesspiegel/Unfallatlas-Berlin-2018/master/unfaelle_berlin_2018.geo.json") %>% 
-  filter(IstRad == 1) %>% 
-  st_transform(crs = "+proj=longlat +datum=WGS84")
+link <- "https://www.opengeodata.nrw.de/produkte/transport_verkehr/unfallatlas/Unfallorte2019_EPSG25832_Shape.zip"
+temp <- tempfile()
+download.file(link, temp)
+shape19 <- read_sf(dsn = unz(temp, "Shapefile/Unfallorte2019_LinRef.shp"))
+unlink(temp)
 
-#shape <- read_sf(dsn = "C:\\blabla\\Unfallorte2019_LinRef.shp")
-#uberlin19<-subset(shape, ULAND ==11)
-#bike19<-subset(uberlin19,IstRad==1)
-
-##Select the last 2 columns (long/lat)
-#point <- bike19 %>% select(,22:23)
-#point<-bike19 %>% select(,22:23)
-#pointWGS<- st_as_sf(x = point, coords = c("XGCSWGS84", "YGCSWGS84"), crs = "+proj=longlat +datum=WGS84")
+bike19 <- read_sf(dsn = here::here("data", "Shapefile", "Unfallorte2019_LinRef.shp")) %>% 
+  filter(ULAND == 11, IstRad == 1) %>% 
+  st_transform(crs = "+proj=longlat +datum=WGS84") %>% 
+  st_zm(drop = TRUE)
                         
 pointWGS <- bike19 %>% 
-  transmute(lon = st_coordinates(.)[,1], lat = st_coordinates(.)[,2]) %>% 
-  st_drop_geometry()
-
-
-####bike lane data
-# rad <- sf::st_read("C:\\blabla\\Radverkehrsanlagen.geojson",options = "ENCODING=WINDOWS-1252")
-# names(rad)[names(rad) == 'SORVT_TYP'] <- 'type'
-# names(rad)[names(rad) == 'LAENGE'] <- 'length'
-# names(rad)[names(rad) == 'STST_STR'] <- 'street'
-# names(rad)[names(rad) == 'STOR_NAME'] <- 'district'
-# names(rad)[names(rad) == 'ORTSTL'] <- 'district2'
-# names(rad)[names(rad) == 'RVA_TYP'] <- 'category'
-# ###Instead of using 15 categories-it is probably better to focus on column "category" instead of "type". There we have only 4 categories.
-# rad$category <- gsub("Bussonderfahrstreifen", "bus lane", rad$category)
-# rad$category <- gsub("Radfahrstreifen", "bike lane", rad$category)
-# rad$category <- gsub("Radwege", "Cycling infrastructure", rad$category)
-# rad$category <- gsub("Schutzstreifen", "advisory bike lane", rad$category)
-##Add bike lane ID
-# rad2 <- data.table(rad, key="category")
-# rad2[, bikelane_ID:=.GRP, by=key(rad2)]
+  transmute(lon = st_coordinates(.)[,1], lat = st_coordinates(.)[,2])
 
 rad2 <- rad %>% 
   group_by(type) %>% 
   mutate(bikelane_ID = group_indices())
 
-# rad2 %>% 
-#   mutate(lon = st_coordinates(.)[,1], lat = st_coordinates(.)[,2]) %>% 
-#   st_drop_geometry()
-
-###Select longitude + Latitude
-# rad3<-rad2 %>% select(,12:13)
-# rad3 = st_as_sf(rad3)
-# line = st_set_crs(rad3, 4326)
-
 pts <- as(pointWGS, 'Spatial')
 line <- as(rad2, 'Spatial')
-
-####and then I will be moving on with something like:dist <- geosphere::dist2Line(p = st_coordinates(pointWGS), line = st_coordinates(line)[,1:2])
-
 
 geosphere::dist2Line(p = pts, line = line)
 ```
