@@ -1,0 +1,147 @@
+---
+title: "CorrelAid X Challenge: Match Accident Locations with Bike Lane Information"
+author: "Andreas Neumann and Cédric Scherer"
+date: "`r Sys.Date()`"    ## current date
+output:
+  html_document:
+    theme: paper          ## choose theme
+    highlight: kate       ## choose coding style
+    toc_depth: 2          ## table of content
+    toc_float: true       ## allow toc next to doc#
+    code_folding: show    ## include + show code
+    #code_folding: hide    ## include code but hide it
+    code_download: true   ## allow download of source
+editor_options:
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE, warning = FALSE, 
+  fig.showtext = TRUE, fig.retina = 1,
+  fig.width = 10, fig.height = 7.5
+)
+```
+
+```{r prep}
+library(tidyverse)
+library(readr)
+library(geojsonsf)
+library(sf)
+```
+
+Source: Geoportal Berlin via [Technologiestiftung Berlin](https://data.technologiestiftung-berlin.de/dataset/radverkehrsanlagen)
+
+```{r data}
+path <- here::here("data", "radverkehrsanlagen.rds")
+
+if(!file.exists(path)) {
+  
+  #Open file
+  link <- "https://tsb-opendata.s3.eu-central-1.amazonaws.com/radverkehrsanlagen/Radverkehrsanlagen.geojson.zip"
+  
+  temp <- tempfile()
+  download.file(link, temp)
+  rad <- geojsonsf::geojson_sf(unz(temp, "Radverkehrsanlagen.geojson"))
+  unlink(temp)
+  
+  names(rad)[names(rad) == 'SORVT_TYP'] <- 'type'
+  names(rad)[names(rad) == 'LAENGE'] <- 'length'
+  names(rad)[names(rad) == 'STST_STR'] <- 'street'
+  names(rad)[names(rad) == 'STOR_NAME'] <- 'district'
+  names(rad)[names(rad) == 'ORTSTL'] <- 'district2'
+  names(rad)[names(rad) == 'RVA_TYP'] <- 'category'
+  
+  rad$type <- gsub("Bussonderfahrstreifen Z 295", "bus lane", rad$type)
+  rad$type <- gsub("Bussonderfahrstreifen Z 340", "bus lane", rad$type)
+  rad$type <- gsub("Geh-/Radweg, durch Markierung unterschieden", "side walk and cycling infrastructure seperated by road markings", rad$type)
+  rad$type <- gsub("Geh-/Radweg, baulich unterschieden", "side walk and cycling infrastructure structurally separated", rad$type)
+  rad$type <- gsub("Geh-/Radweg, ohne Trennung", "side walk and cycling infrastructure combined", rad$type)
+  rad$type <- gsub("Gehweg, mit Radverkehr frei", "side walk also used by cyclists", rad$type)
+  rad$type <- gsub("Radfahrerfurt Z 340", "bicycle crossing ", rad$type)
+  rad$type <- gsub("Radfahrstreifen Z 295, ohne ruh.Verkehr", "bike lane separated from traffic", rad$type)
+  rad$type <- gsub("Radfahrstreifen Z 295, ruh.Verkehr mit Begrenzung", "bike lane separated from stationary traffic", rad$type)
+  rad$type <- gsub("Radfahrstreifen Z 295, ruh.Verkehr ohne Begrenzung", "bike lane not separated from stationary traffic", rad$type)
+  rad$type <- gsub("Radverkehrsanlage Z 340 im/am Knotenpunktsbereich", "cycling infrastructure at road junctions", rad$type)
+  rad$type <- gsub("Radweg, baulich getrennt", "structurally separated cycling infrastructure", rad$type)
+  rad$type <- gsub("Schutzstreifen Z 340 ohne ruhenden Verkehr", "advisory cycle lane/no stationary traffic", rad$type)
+  rad$type <- gsub("Schutzstreifen Z 340, mit ruh.Verkehr mit Begrenzung", "advisory cycle lane separated from stationary traffic", rad$type)
+  rad$type <- gsub("Schutzstreifen Z 340, mit ruh.Verkehr ohne Begrenzung", "advisory cycle lane not separated from stationary traffic", rad$type)
+  
+  rad$category <- gsub("Bussonderfahrstreifen", "bus lane", rad$category)
+  rad$category <- gsub("Radfahrstreifen", "bike lane", rad$category)
+  rad$category <- gsub("Radwege", "Cycling infrastructure", rad$category)
+  rad$category <- gsub("Schutzstreifen", "advisory bike lane", rad$category)
+  
+  write_rds(rad, path)
+} else {
+  rad <- read_rds(path)
+}
+```
+
+
+```{r mapview, eval = F}
+#Create map
+mapview(rad, zcol="type")
+```
+
+```{r}
+## accident data
+bike19 <- 
+  read_sf(dsn = "https://raw.githubusercontent.com/tagesspiegel/Unfallatlas-Berlin-2018/master/unfaelle_berlin_2018.geo.json") %>% 
+  filter(IstRad == 1) %>% 
+  st_transform(crs = "+proj=longlat +datum=WGS84")
+
+#shape <- read_sf(dsn = "C:\\blabla\\Unfallorte2019_LinRef.shp")
+#uberlin19<-subset(shape, ULAND ==11)
+#bike19<-subset(uberlin19,IstRad==1)
+
+##Select the last 2 columns (long/lat)
+#point <- bike19 %>% select(,22:23)
+#point<-bike19 %>% select(,22:23)
+#pointWGS<- st_as_sf(x = point, coords = c("XGCSWGS84", "YGCSWGS84"), crs = "+proj=longlat +datum=WGS84")
+                        
+pointWGS <- bike19 %>% 
+  transmute(lon = st_coordinates(.)[,1], lat = st_coordinates(.)[,2]) %>% 
+  st_drop_geometry()
+
+
+####bike lane data
+# rad <- sf::st_read("C:\\blabla\\Radverkehrsanlagen.geojson",options = "ENCODING=WINDOWS-1252")
+# names(rad)[names(rad) == 'SORVT_TYP'] <- 'type'
+# names(rad)[names(rad) == 'LAENGE'] <- 'length'
+# names(rad)[names(rad) == 'STST_STR'] <- 'street'
+# names(rad)[names(rad) == 'STOR_NAME'] <- 'district'
+# names(rad)[names(rad) == 'ORTSTL'] <- 'district2'
+# names(rad)[names(rad) == 'RVA_TYP'] <- 'category'
+# ###Instead of using 15 categories-it is probably better to focus on column "category" instead of "type". There we have only 4 categories.
+# rad$category <- gsub("Bussonderfahrstreifen", "bus lane", rad$category)
+# rad$category <- gsub("Radfahrstreifen", "bike lane", rad$category)
+# rad$category <- gsub("Radwege", "Cycling infrastructure", rad$category)
+# rad$category <- gsub("Schutzstreifen", "advisory bike lane", rad$category)
+##Add bike lane ID
+# rad2 <- data.table(rad, key="category")
+# rad2[, bikelane_ID:=.GRP, by=key(rad2)]
+
+rad2 <- rad %>% 
+  group_by(type) %>% 
+  mutate(bikelane_ID = group_indices())
+
+rad2 %>% 
+  transmute(lon = st_coordinates(.)[,1], lat = st_coordinates(.)[,2]) %>% 
+  st_drop_geometry()
+
+###Select longitude + Latitude
+# rad3<-rad2 %>% select(,12:13)
+# rad3 = st_as_sf(rad3)
+# line = st_set_crs(rad3, 4326)
+
+pts <- as(pointWGS, 'Spatial')
+line <- as(rad2, 'Spatial')
+
+####and then I will be moving on with something like:dist <- geosphere::dist2Line(p = st_coordinates(pointWGS), line = st_coordinates(line)[,1:2])
+
+
+geosphere::dist2Line(p = pts, line = line)
+```
+
