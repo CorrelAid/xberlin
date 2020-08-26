@@ -127,9 +127,9 @@ rad2 <- rad %>%
   group_by(type) %>% 
   mutate(bikelane_ID = group_indices())
 
-rad2 %>% 
-  transmute(lon = st_coordinates(.)[,1], lat = st_coordinates(.)[,2]) %>% 
-  st_drop_geometry()
+# rad2 %>% 
+#   mutate(lon = st_coordinates(.)[,1], lat = st_coordinates(.)[,2]) %>% 
+#   st_drop_geometry()
 
 ###Select longitude + Latitude
 # rad3<-rad2 %>% select(,12:13)
