@@ -5,4 +5,4 @@
 
 ## data for Germany and all accidents by Unfallatlas is larger than 100MB
 data/unfallatlas_eng.Rds
-data/Shapefile
+data/Unfallorte2019_EPSG25832_Shape
