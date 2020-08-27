@@ -85,29 +85,34 @@ if(!file.exists(path)) {
 mapview(rad, zcol="type")
 ```
 
-```{r}
-## accident data
-link <- "https://www.opengeodata.nrw.de/produkte/transport_verkehr/unfallatlas/Unfallorte2019_EPSG25832_Shape.zip"
-temp <- tempfile()
-download.file(link, temp)
-shape19 <- read_sf(dsn = unz(temp, "Shapefile/Unfallorte2019_LinRef.shp"))
-unlink(temp)
 
-bike19 <- read_sf(dsn = here::here("data", "Shapefile", "Unfallorte2019_LinRef.shp")) %>% 
+```{r match-accidents-with-bike-lanes}
+## accident data
+# link <- "https://www.opengeodata.nrw.de/produkte/transport_verkehr/unfallatlas/Unfallorte2019_EPSG25832_Shape.zip"
+# temp <- tempfile()
+# download.file(link, temp)
+# accidents_19 <- read_sf(dsn = unz(temp, "Shapefile/Unfallorte2019_LinRef.shp"))
+# unlink(temp)
+
+bike_accidents_19 <- 
+  read_sf(dsn = here::here("data", "Unfallorte2019_EPSG25832_Shape", 
+                           "Shapefile", "Unfallorte2019_LinRef.shp")) %>% 
   filter(ULAND == 11, IstRad == 1) %>% 
   st_transform(crs = "+proj=longlat +datum=WGS84") %>% 
   st_zm(drop = TRUE)
                         
-pointWGS <- bike19 %>% 
+pointWGS <- bike_accidents_19 %>% 
   transmute(lon = st_coordinates(.)[,1], lat = st_coordinates(.)[,2])
 
-rad2 <- rad %>% 
+rad_id <- rad %>% 
   group_by(type) %>% 
-  mutate(bikelane_ID = group_indices())
+  mutate(bikelane_ID = cur_group_id())
 
 pts <- as(pointWGS, 'Spatial')
-line <- as(rad2, 'Spatial')
+line <- as(rad_id, 'Spatial')
 
-geosphere::dist2Line(p = pts, line = line)
+dist <- geosphere::dist2Line(p = pts, line = line)
+
+write_rds(dist, here::here("data", "dist_accidents_lanes.Rds"))
 ```
 
