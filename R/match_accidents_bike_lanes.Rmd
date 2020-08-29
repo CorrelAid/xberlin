@@ -78,16 +78,13 @@ rad <-
         TRUE ~ "none"
       ),
          binary = case_when(
-        str_detect(type, "Radfahrerfurt|Knotenpunkt") ~ "1",
-        str_detect(type, "Radfahrstreifen") ~ "1",
-        str_detect(type, "Schutzstreifen") ~ "0",
-        str_detect(type, "Bussonderfahrstreifen") ~ "0",
-        str_detect(type, "baulich") ~ "1",
-        str_detect(type, "ohne Trennung") ~ "0",
-        str_detect(type, "mit Radverkehr frei") ~ "0",
-        str_detect(type, "Geh-/Radweg, durch Markierung unterschieden") ~"1"
+        str_detect(category, "Radwege") ~ "1",
+        str_detect(category, "Radfahrstreifen") ~ "1",
+        str_detect(category, "Schutzstreifen") ~ "0",
+        str_detect(category, "Bussonderfahrstreifen") ~ "0"
       )
     )
+
   
   rad$type <- gsub("Bussonderfahrstreifen Z 295", "bus lane", rad$type)
   rad$type <- gsub("Bussonderfahrstreifen Z 340", "bus lane", rad$type)
