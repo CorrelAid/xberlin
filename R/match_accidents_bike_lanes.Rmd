@@ -52,6 +52,33 @@ if(!file.exists(path)) {
   names(rad)[names(rad) == 'ORTSTL'] <- 'district2'
   names(rad)[names(rad) == 'RVA_TYP'] <- 'category'
   
+  rad <-
+    rad %>% 
+    mutate(
+      street = str_replace(street, "ÃŸ", "ß"),
+      street = str_replace(street, "Ã¶", "ö"),
+      street = str_replace(street, "Ã¼", "ü"),
+      agg = case_when(
+        str_detect(type, "Z 295") ~ "Cycle lane",
+        str_detect(type, "Z 340") ~ "Advisory cycle lane",
+        str_detect(type, "Geh-/|Gehweg") ~ "Cycle path on sidewalk",
+        type == "Radweg, baulich getrennt" ~ "Cycle path",
+        TRUE ~ "Unknown"
+      ),
+      sub = case_when(
+        str_detect(type, "Bussonderfahrstreifen") ~ "bus lane",
+        type == "Geh-/Radweg, durch Markierung unterschieden" ~ "marked",
+        type == "Geh-/Radweg, baulich unterschieden" ~ "marked",
+        type == "Geh-/Radweg, ohne Trennung" ~ "no separation",
+        type == "Gehweg, mit Radverkehr frei" ~ "shared with pedestrians",
+        str_detect(type, "Radfahrerfurt|Knotenpunkt") ~ "crossing",
+        str_detect(type, "ohne ruh.Verkehr") ~ "no parking",
+        str_detect(type, "ruh.Verkehr mit Begrenzung") ~ "parking separated",
+        str_detect(type, "ruh.Verkehr ohne Begrenzung") ~ "parking",
+        TRUE ~ "none"
+      )
+    )
+  
   rad$type <- gsub("Bussonderfahrstreifen Z 295", "bus lane", rad$type)
   rad$type <- gsub("Bussonderfahrstreifen Z 340", "bus lane", rad$type)
   rad$type <- gsub("Geh-/Radweg, durch Markierung unterschieden", "side walk and cycling infrastructure seperated by road markings", rad$type)
@@ -68,10 +95,10 @@ if(!file.exists(path)) {
   rad$type <- gsub("Schutzstreifen Z 340, mit ruh.Verkehr mit Begrenzung", "advisory cycle lane separated from stationary traffic", rad$type)
   rad$type <- gsub("Schutzstreifen Z 340, mit ruh.Verkehr ohne Begrenzung", "advisory cycle lane not separated from stationary traffic", rad$type)
   
-  rad$category <- gsub("Bussonderfahrstreifen", "bus lane", rad$category)
-  rad$category <- gsub("Radfahrstreifen", "bike lane", rad$category)
-  rad$category <- gsub("Radwege", "Cycling infrastructure", rad$category)
-  rad$category <- gsub("Schutzstreifen", "advisory bike lane", rad$category)
+  rad$category <- gsub("Bussonderfahrstreifen", "Bus lane", rad$category)
+  rad$category <- gsub("Radfahrstreifen", "Cycle lane", rad$category)
+  rad$category <- gsub("Radwege", "Cycle path", rad$category)
+  rad$category <- gsub("Schutzstreifen", "Advisory bike lane", rad$category)
   
   write_rds(rad, path)
 } else {
@@ -94,12 +121,20 @@ mapview(rad, zcol="type")
 # accidents_19 <- read_sf(dsn = unz(temp, "Shapefile/Unfallorte2019_LinRef.shp"))
 # unlink(temp)
 
-bike_accidents_19 <- 
-  read_sf(dsn = here::here("data", "Unfallorte2019_EPSG25832_Shape", 
-                           "Shapefile", "Unfallorte2019_LinRef.shp")) %>% 
-  filter(ULAND == 11, IstRad == 1) %>% 
-  st_transform(crs = "+proj=longlat +datum=WGS84") %>% 
-  st_zm(drop = TRUE)
+path <- here::here("data", "unfallatlas_berlin_bikes_sf.rds")
+
+if(!file.exists(path)) {
+  bike_accidents_19 <- 
+    read_sf(dsn = here::here("data", "Unfallorte2019_EPSG25832_Shape", 
+                             "Shapefile", "Unfallorte2019_LinRef.shp")) %>% 
+    filter(ULAND == 11, IstRad == 1) %>% 
+    st_transform(crs = "+proj=longlat +datum=WGS84") %>% 
+    st_zm(drop = TRUE)
+  
+  write_rds(bike_accidents_19, path)
+} else {
+  bike_accidents_19 <- read_rds(path)
+}
                         
 pointWGS <- bike_accidents_19 %>% 
   transmute(lon = st_coordinates(.)[,1], lat = st_coordinates(.)[,2])
