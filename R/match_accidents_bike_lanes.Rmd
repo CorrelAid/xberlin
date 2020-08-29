@@ -52,7 +52,7 @@ if(!file.exists(path)) {
   names(rad)[names(rad) == 'ORTSTL'] <- 'district2'
   names(rad)[names(rad) == 'RVA_TYP'] <- 'category'
   
-  rad <-
+rad <-
     rad %>% 
     mutate(
       street = str_replace(street, "ÃŸ", "ß"),
@@ -76,6 +76,16 @@ if(!file.exists(path)) {
         str_detect(type, "ruh.Verkehr mit Begrenzung") ~ "parking separated",
         str_detect(type, "ruh.Verkehr ohne Begrenzung") ~ "parking",
         TRUE ~ "none"
+      ),
+         binary = case_when(
+        str_detect(type, "Radfahrerfurt|Knotenpunkt") ~ "1",
+        str_detect(type, "Radfahrstreifen") ~ "1",
+        str_detect(type, "Schutzstreifen") ~ "0",
+        str_detect(type, "Bussonderfahrstreifen") ~ "0",
+        str_detect(type, "baulich") ~ "1",
+        str_detect(type, "ohne Trennung") ~ "0",
+        str_detect(type, "mit Radverkehr frei") ~ "0",
+        str_detect(type, "Geh-/Radweg, durch Markierung unterschieden") ~"1"
       )
     )
   
