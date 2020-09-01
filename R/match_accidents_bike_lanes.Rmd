@@ -30,7 +30,179 @@ library(geojsonsf)
 library(sf)
 ```
 
+
+## BIKE LANE DATA
+
 Source: Geoportal Berlin via [Technologiestiftung Berlin](https://data.technologiestiftung-berlin.de/dataset/radverkehrsanlagen)
+
+```{r}
+path <- here::here("data", "radverkehrsanlagen.rds")
+
+if(!file.exists(path)) {
+  
+  #Open file
+  link <- "https://tsb-opendata.s3.eu-central-1.amazonaws.com/radverkehrsanlagen/Radverkehrsanlagen.geojson.zip"
+  
+  temp <- tempfile()
+  download.file(link, temp)
+  rad <- geojsonsf::geojson_sf(unz(temp, "Radverkehrsanlagen.geojson"))
+  unlink(temp)
+  
+  names(rad)[names(rad) == 'SORVT_TYP'] <- 'type'
+  names(rad)[names(rad) == 'LAENGE'] <- 'length'
+  names(rad)[names(rad) == 'STST_STR'] <- 'street'
+  names(rad)[names(rad) == 'STOR_NAME'] <- 'district'
+  names(rad)[names(rad) == 'ORTSTL'] <- 'district2'
+  names(rad)[names(rad) == 'RVA_TYP'] <- 'category'
+  
+  rad <-
+    rad %>% 
+    mutate(
+      street = str_replace(street, "ÃŸ", "ß"),
+      street = str_replace(street, "Ã¶", "ö"),
+      street = str_replace(street, "Ã¼", "ü"),
+      ## broad categories
+      cat = case_when(
+        type == "Bussonderfahrstreifen Z 340" ~ "bus lane", 
+        type == "Bussonderfahrstreifen Z 295" ~ "bus lane", 
+        type == "Geh-/Radweg, baulich unterschieden" ~ "sidewalk", 
+        type == "Geh-/Radweg, durch Markierung unterschieden" ~ "sidewalk", 
+        type == "Geh-/Radweg, ohne Trennung" ~ "sidewalk",
+        type == "Gehweg, mit Radverkehr frei" ~ "sidewalk", 
+        type == "Radfahrerfurt Z 340" ~ "advisory bike lane",
+        type == "Radfahrstreifen Z 295, ohne ruh.Verkehr" ~ "bike lane", 
+        type == "Radfahrstreifen Z 295, ruh.Verkehr mit Begrenzung" ~ "bike lane", 
+        type == "Radfahrstreifen Z 295, ruh.Verkehr ohne Begrenzung" ~ "bike lane", 
+        type == "Radverkehrsanlage Z 340 im/am Knotenpunktsbereich" ~ "bike lane", 
+        type == "Radweg, baulich getrennt" ~ "bike path", 
+        type == "Schutzstreifen Z 340 ohne ruhenden Verkehr" ~ "advisory bike lane",
+        type == "Schutzstreifen Z 340, mit ruh.Verkehr mit Begrenzung" ~ "advisory bike lane", 
+        type == "Schutzstreifen Z 340, mit ruh.Verkehr ohne Begrenzung" ~ "advisory bike lane"
+      ),
+      ## sub-classes
+      sub = case_when(
+        str_detect(type, "Bussonderfahrstreifen") ~ "bus lane",
+        type == "Geh-/Radweg, durch Markierung unterschieden" ~ "marked",
+        type == "Geh-/Radweg, baulich unterschieden" ~ "marked",
+        type == "Geh-/Radweg, ohne Trennung" ~ "no separation",
+        type == "Gehweg, mit Radverkehr frei" ~ "shared with pedestrians",
+        str_detect(type, "Radfahrerfurt|Knotenpunkt") ~ "crossing",
+        str_detect(type, "ohne ruh.Verkehr") ~ "no parking",
+        str_detect(type, "ruh.Verkehr mit Begrenzung") ~ "parking separated",
+        str_detect(type, "ruh.Verkehr ohne Begrenzung") ~ "parking",
+        TRUE ~ "none"
+      ),
+      ## mandatory or advisory?
+      mandatory = case_when(
+        str_detect(category, "Radwege") ~ "mandatory",
+        str_detect(category, "Radfahrstreifen") ~ "mandatory", 
+        str_detect(category, "Schutzstreifen") ~ "advisory",  
+        str_detect(category, "Bussonderfahrstreifen") ~ "advisory"
+      )
+    ) %>% 
+    st_transform(crs = "+proj=geocent +datum=WGS84 +units=m +no_defs")
+  
+  write_rds(rad, path)
+} else {
+  rad <- read_rds(path)
+}
+```
+
+
+## BIKE ACCIDENT DATA
+
+Source: https://unfallatlas.statistikportal.de/_opendata2020.html
+
+```{r}
+path <- here::here("data", "unfallatlas_berlin_bikes_sf.rds")
+
+if(!file.exists(path)) {
+  bike_accidents_19 <- 
+    read_sf(dsn = here::here("data", "Unfallorte2019_EPSG25832_Shape", 
+                             "Shapefile", "Unfallorte2019_LinRef.shp")) %>% 
+    filter(ULAND == 11, IstRad == 1) %>% 
+    st_transform(crs = st_crs(rad)) %>% 
+    st_zm(drop = TRUE)
+  
+  write_rds(bike_accidents_19, path)
+} else {
+  bike_accidents_19 <- read_rds(path)
+}
+```
+
+
+## MATCH ACCIDENTS TO BIKE LANES
+
+```{r}
+path <- here::here("data", "accidents_matched_sf.rds")
+
+if(!file.exists(path)) {
+
+  ## caclulate buffer and assign bike accidents to bike lanes
+  ## all that are not matched belong to category "road only"
+  rad_buffer <- st_buffer(rad, 3, endCapStyle = 'FLAT') 
+  
+  inter <- st_intersection(rad_buffer, bike_accidents_19)
+  
+  ## add categories for road accidents
+  accidents_no_bike <-
+    bike_accidents_sf %>% 
+    filter(!(OBJECTID %in% inter$OBJECTID)) %>% 
+    mutate(
+      agg = "no bike infrastructure",
+      sub = "none",
+      cat = "road",
+      mandatory = "-1"
+    )
+  
+  ## full dataset with accidents matched to bike lanes and roads 
+  accidents_matched <-
+    inter %>% 
+    dplyr::select(OBJECTID:STRZUSTAND, cat, agg, sub, mandatory) %>% 
+    bind_rows(accidents_no_bike) %>% 
+    st_transform(crs = st_crs(rad_sf)) %>% 
+    st_transform(crs = st_crs(rad))
+  
+  ## clean duplicates: there are 4 true duplicates 
+  ## (i.e. accidents falling into two bike lane categories)
+  ## -> we randomly pick one of each duplicated accidents
+  # duplicates <- 
+  #   accidents_matched %>% 
+  #   group_by(OBJECTID) %>% 
+  #   count(OBJECTID) %>% 
+  #   filter(n > 1) %>% 
+  #   pull(OBJECTID)
+  
+  accidents_matched <-
+    accidents_matched %>% 
+    group_by(OBJECTID) %>% 
+    slice(1)
+
+  write_rds(accidents_matched, path)
+} else {
+  accidents_matched <- read_rds(path)
+}
+```
+
+
+# Next Steps:
+
+* Data: (Teil-)Verkehrszellen
+* Binary check of risk: road versus non-road per cell -> prop + (accident-weighted) average
+* Display graident on chloropleth map
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ```{r data}
 path <- here::here("data", "radverkehrsanlagen.rds")
