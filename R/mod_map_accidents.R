@@ -63,7 +63,7 @@ mod_map_accidents_server <- function(input, output, session){
           popup.vars = c("Opponent:" = "Opponent",
                          "Month:" = "Month", "Weekday:" = "Weekday",
                          "Hour:" = "Hour", "Street condition:" = "Condition",
-                         "Light condition:" = "Light",)
+                         "Light condition:" = "Light")
         )
       ## dots colored by opponent
       # tm_dots(
