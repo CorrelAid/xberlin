@@ -39,7 +39,7 @@ bike_lanes <-
       type == "Radfahrstreifen Z 295, ohne ruh.Verkehr" ~ "mandatory_bike_lane", 
       type == "Radfahrstreifen Z 295, ruh.Verkehr mit Begrenzung" ~ "mandatory_bike_lane", 
       type == "Radfahrstreifen Z 295, ruh.Verkehr ohne Begrenzung" ~ "mandatory_bike_lane", 
-      type == "Radverkehrsanlage Z 340 im/am Knotenpunktsbereich" ~ "mandatory_bike_lane", 
+      type == "Radverkehrsanlage Z 340 im/am Knotenpunktsbereich" ~ "advisory_bike_lane", 
       type == "Radweg, baulich getrennt" ~ "bike_path", 
       type == "Schutzstreifen Z 340 ohne ruhenden Verkehr" ~ "advisory_bike_lane",
       type == "Schutzstreifen Z 340, mit ruh.Verkehr mit Begrenzung" ~ "advisory_bike_lane", 
@@ -47,12 +47,12 @@ bike_lanes <-
     ),
     ## mandatory or advisory?
     mandatory = dplyr::case_when(
+      cat == "mandatory_bike_lane" ~ "mandatory",
+      cat == "advisory_bike_lane" ~ "advisory",
       stringr::str_detect(category, "Radwege") ~ "mandatory",
-      stringr::str_detect(category, "Radfahrstreifen") ~ "mandatory", 
+      stringr::str_detect(category, "Radfahrstreifen") ~ "mandatory",
       stringr::str_detect(category, "Schutzstreifen") ~ "advisory",  
-      stringr::str_detect(category, "Bussonderfahrstreifen") ~ "advisory",
-      stringr::str_detect(type, "advisory") ~ "advisory",
-      stringr::str_detect(type, "mandatory") ~ "mandatory"
+      stringr::str_detect(category, "Bussonderfahrstreifen") ~ "advisory"
     )
   ) %>% 
   sf::st_transform(crs = "+proj=geocent +datum=WGS84 +no_defs") %>%  

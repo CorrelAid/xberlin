@@ -42,8 +42,9 @@ mod_map_accidents_server <- function(input, output, session){
       tm_polygons(
         id = "NAME",
         border.col = "#85858533", alpha = 0, 
-        popup.vars = c("Traffic cell name:" = "NAME", "Traffic Cell ID:" = "spatial_name",
-                      "District:" = "Gemeinde_name", "LOR Area Code:" = "I_LOR_PRR")
+        popup.vars = c("Traffic Cell ID:" = "spatial_name",
+                      "District:" = "Gemeinde_name", 
+                      "LOR Area Code:" = "I_LOR_PRR")
       ) +
       tm_shape(bike_lanes, name = "Bicycle infrastructure") +
         tm_lines(
@@ -59,9 +60,10 @@ mod_map_accidents_server <- function(input, output, session){
           size = .03, #col = "grey80",
           col = "Light", palette = viridis::cividis(3, begin = .07, end = .93, direction = -1), border.col = "white",
           title = "Light condition:",
-          popup.vars = c("Category:" = "Category", "Opponent:" = "Opponent",
+          popup.vars = c("Opponent:" = "Opponent",
                          "Month:" = "Month", "Weekday:" = "Weekday",
-                         "Hour:" = "Hour", "Street condition:" = "Condition")
+                         "Hour:" = "Hour", "Street condition:" = "Condition",
+                         "Light condition:" = "Light",)
         )
       ## dots colored by opponent
       # tm_dots(
