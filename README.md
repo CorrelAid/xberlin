@@ -31,7 +31,7 @@ xberlin::run_app(launch.browser = .rs.invokeShinyWindowExternal)
 
 <img src="./inst/app/www/preview/slide_1.png" width="80%" />
 
-#### Slide 3: Comparison of Accidents with personal injury in Major Cities in Germany
+#### Slide 3: Comparison of Accidents with Injuries in Major Cities in Germany
 
 <img src="./inst/app/www/preview/slide_3_1.png" width="80%" />
 <img src="./inst/app/www/preview/slide_3_2.png" width="80%" />
@@ -39,31 +39,35 @@ xberlin::run_app(launch.browser = .rs.invokeShinyWindowExternal)
 <img src="./inst/app/www/preview/slide_3_4.png" width="80%" />
 <img src="./inst/app/www/preview/slide_3_5.png" width="80%" />
 
-#### Slide 4: Accidents with personal injury in Berlin in 2019 per District and Road User
+#### Slide 4: Accidents with Injuries in Berlin in 2019 per District and Road User
 
 <img src="./inst/app/www/preview/slide_4_1.png" width="80%" />
 <img src="./inst/app/www/preview/slide_4_2.png" width="80%" />
 <img src="./inst/app/www/preview/slide_4_3.png" width="80%" />
 
-#### Slide 5: Berlin Map of Bike Accidents with personal injury and Bicycle Infrastructure
+#### Slide 5: Berlin Map of Bike Accidents with Injuries and Bicycle Infrastructure
 
 <img src="./inst/app/www/preview/slide_5_1.png" width="80%" />
 <img src="./inst/app/www/preview/slide_5_2.png" width="80%" />
 <img src="./inst/app/www/preview/slide_5_3.png" width="80%" />
 <img src="./inst/app/www/preview/slide_5_4.png" width="80%" />
 
-#### Slide 6: Bike Accidents with personal injury per Bike Infrastructure and Opponent
+#### Slide 6: Bike Accidents with Injuries per Bike Infrastructure and Opponent
 
 <img src="./inst/app/www/preview/slide_6_1.png" width="80%" />
 <img src="./inst/app/www/preview/slide_6_2.png" width="80%" />
 <img src="./inst/app/www/preview/slide_6_3.png" width="80%" />
 
-#### Slide 7: Berlin Map of Bike Accidents with personal injury per Traffic Cell
+#### Slide 7: Berlin Map of Bike Accidents with Injuries per Traffic Cell
 
 <img src="./inst/app/www/preview/slide_7_1.png" width="80%" />
 <img src="./inst/app/www/preview/slide_7_2.png" width="80%" />
 <img src="./inst/app/www/preview/slide_7_3.png" width="80%" />
 
-#### Slide 9: About the Project
+#### Slide 8: About the Project
+
+<img src="./inst/app/www/preview/slide_8.png" width="80%" />
+
+#### Slide 9: Methodology & Future Steps
 
 <img src="./inst/app/www/preview/slide_9.png" width="80%" />
