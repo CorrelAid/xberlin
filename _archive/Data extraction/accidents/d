@@ -1,5 +1,0 @@
-Hi guys , here is a data exploration of accidents extracted from datenguidepy for all major German cities.
-
-What I need is to know how to download the data in csv file to my pc so I can process it using R..etc
-
-I have tried "to_CSV()" and I faced errors....

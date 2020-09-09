@@ -1,8 +1,8 @@
-.Rproj.user
 .Rhistory
 .RData
-.Ruserdata
+.Rproj.user
+inst/doc
+doc
+Meta
 
-## data for Germany and all accidents by Unfallatlas is larger than 100MB
-data/unfallatlas_eng.Rds
-data/Unfallorte2019_EPSG25832_Shape
+*/Unfallorte2019/
