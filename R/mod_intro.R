@@ -35,7 +35,7 @@ mod_intro_ui <- function(id){
    "— as well as information on ",
    tags$a(href="https://data.technologiestiftung-berlin.de/dataset/radverkehrsanlagen", "bike infrastructure"), 
    "and",
-   tags$a(href="https://data.technologiestiftung-berlin.de/dataset/radverkehrsanlagen", "traffic cells"), 
+   tags$a(href="https://data.technologiestiftung-berlin.de/dataset/teil_verkehrszellen", "traffic cells"), 
    ", the relevant areal unit for data collection and planning in Berlin, these questions are explored on the following pages."
   ),
   br(),

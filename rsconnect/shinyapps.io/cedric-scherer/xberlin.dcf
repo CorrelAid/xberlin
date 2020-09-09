@@ -5,6 +5,6 @@ account: cedric-scherer
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 2775832
-bundleId: 3610705
+bundleId: 3611794
 url: https://cedric-scherer.shinyapps.io/xberlin/
-when: 1599657271.707
+when: 1599673421.15749

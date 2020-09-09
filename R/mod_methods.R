@@ -32,9 +32,9 @@ mod_methods_ui <- function(id){
             "since 2016. For each year, destatis collects regional data on car, bike, motorcycle, pedestrian, and lorry accidents with personal injuries on a NUTS1-3 level from several German states and converts them into an open source geographical dataset. Additional data such as the month, day, time and the geographical location of the incident as well as road and light conditions during the accident are also included. For our work we selected the latest data on (bike) accidents in Berlin. In 2019 there were 5,005 recorded bike accidents within the city state."), br(), 
     tags$li(tags$a(href="https://data.technologiestiftung-berlin.de/", code("Technologiestiftung Berlin")), 
             "– A non-profit foundation that is commited to the digitization of Berlin by providing open information, software and infrastructure. We used geodata on",
-            tags$a(href="https://data.technologiestiftung-berlin.de/dataset/teil_verkehrszellen/en", "subtraffic cells"),
+            tags$a(href="https://data.technologiestiftung-berlin.de/dataset/teil_verkehrszellen/en", "traffic cells (“Teilverkehrszellen”)"),
             "and",
-            tags$a(href="https://data.technologiestiftung-berlin.de/dataset/radverkehrsanlagen/en", "bike traffic infrastructures"),
+            tags$a(href="https://data.technologiestiftung-berlin.de/dataset/radverkehrsanlagen/en", "bike traffic infrastructures (“Radverkehrsanlagen”)"),
             "in Berlin. Overall, there are 15 different bike lane categories. For our analysis, we aggregated the categories to five major classes, based on structural appearance (true bike paths, bike paths combined with sidewalk, bike lanes on roads and bus lanes) and whether the use is mandatory or advisory."), 
     br()
   ),
