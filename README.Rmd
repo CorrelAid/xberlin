@@ -19,12 +19,15 @@ A shiny app to explore acidents in Germany as well as bike lane types and bike a
 
 Created for the CorrelAidX Challenge 2020 *“Analysing and visualising German regional statistics with datenguidepy”* by Cédric Scherer, Andreas Neumann, Saleh Hamed & Steffen Reinhold as contribution by CorrelAidX Berlin.
 
+---
+
 ### View the app online
 
 [Link to shinyapps.io](https://cedric-scherer.shinyapps.io/xberlin/)
 
 (The app might or might not work depending on how many people have recently visited the page. Sorry, we are very limited in memory unfortunately. If the app doesn't load, please try it again at a later point or install the package as explained below.)
 
+---
 
 ### Run the app as package in `R`
 
@@ -34,6 +37,8 @@ In your R console, run the following. Make sure the `{devtools}` package is inst
 devtools::install_github("CorrelAid/xberlin")
 xberlin::run_app(launch.browser = .rs.invokeShinyWindowExternal)
 ```
+
+#
 
 ### Previews
 
