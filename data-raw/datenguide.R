@@ -1,5 +1,6 @@
 ## code to prepare `datenguide` dataset goes here
 
+#reticulate::py_install("datenguidepy")
 reticulate::source_python("data-raw/get_data_datenguidepy.py")
 
 datenguide <- 
