@@ -34,11 +34,11 @@ usethis::use_package( "rcartocolor" )
 ## Add modules ----
 ## Create a module infrastructure in R/
 golem::add_module( name = "intro" ) # Name of the module
-golem::add_module( name = "comp" ) # Name of the module
+golem::add_module( name = "cities" ) # Name of the module
 golem::add_module( name = "districts" ) # Name of the module
-golem::add_module( name = "map" ) # Name of the module
+golem::add_module( name = "map_accidents" ) # Name of the module
 golem::add_module( name = "types" ) # Name of the module
-golem::add_module( name = "map_2" ) # Name of the module
+golem::add_module( name = "map_traffic" ) # Name of the module
 golem::add_module( name = "methods" ) # Name of the module
 golem::add_module( name = "about" ) # Name of the module
 
