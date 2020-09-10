@@ -58,6 +58,6 @@ VignetteBuilder: knitr
 Depends: 
     R (>= 3.5)
 Remotes:
-  JohnCoene/typed
-  RinteRface/fullPage
+  JohnCoene/typed,
+  RinteRface/fullPage,
   hadley/emo
