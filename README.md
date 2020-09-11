@@ -14,6 +14,25 @@ Created for the CorrelAidX Challenge 2020 *“Analysing and visualising German r
 
 #
 
+### Run the app as package
+
+In your R console, run the following. Make sure the `{devtools}` package is installed as well (if not, run `install.packages("devtools")`.
+
+```
+devtools::install_github("CorrelAid/xberlin")
+xberlin::run_app(launch.browser = .rs.invokeShinyWindowExternal)
+```
+
+In some trial runs, three non-CRAN packages had to be installed manually. If you have the same problems, please install the GitHub versions with the following code:
+
+```
+devtools::install_github("RinteRface/fullPage")
+devtools::install_github("JohnCoene/typed")
+devtools::install_github("hadley/emo")
+```
+
+#
+
 ### Run the app locally
 
 1) Clone the repo
