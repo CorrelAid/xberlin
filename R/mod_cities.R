@@ -6,7 +6,7 @@
 #'
 #' @noRd 
 #'
-#' @importFrom shiny NS tagList 
+#' @importFrom shiny NS tagList
 mod_cities_ui <- function(id){
   ns <- NS(id)
   fullPage::pageContainer(
@@ -47,7 +47,7 @@ mod_cities_server <- function(input, output, session){
   ns <- session$ns 
  
   output$city_select_generated <- renderUI({
-    cns <- datenguide %>% 
+    cns <- xberlin::datenguide %>% 
       dplyr::distinct(name) %>% 
       dplyr::pull(name)
     
@@ -84,7 +84,7 @@ mod_cities_server <- function(input, output, session){
     )
     
     # filter selected and match with color
-    dat <- datenguide %>% 
+    dat <- xberlin::datenguide %>% 
       dplyr::filter(name %in% input$city_select) %>%
       dplyr::left_join(my_colors, by = "name")
     

@@ -8,7 +8,6 @@
 #'
 #' @importFrom shiny NS tagList 
 #' @import tmap
-
 mod_map_accidents_ui <- function(id){
   ns <- NS(id)
   fullPage::pageContainer(
@@ -34,11 +33,15 @@ mod_map_accidents_server <- function(input, output, session){
   
   output$map <- renderTmap({
     
-    sf::st_crs(traffic_cells) <- 3068 
-    sf::st_crs(bike_lanes) <- 3068 
-    sf::st_crs(bike_accidents) <- 3068 
+    traffic_cells_int <- xberlin::traffic_cells
+    bike_lanes_int <- xberlin::bike_lanes
+    bike_accidents_int <- xberlin::bike_accidents
     
-    tm_shape(traffic_cells, name = "Traffic cells") +
+    sf::st_crs(traffic_cells_int) <- 3068 
+    sf::st_crs(bike_lanes_int) <- 3068 
+    sf::st_crs(bike_accidents_int) <- 3068 
+    
+    tm_shape(traffic_cells_int, name = "Traffic cells") +
       tm_polygons(
         id = "NAME",
         border.col = "#85858533", alpha = 0, 
@@ -46,7 +49,7 @@ mod_map_accidents_server <- function(input, output, session){
                       "District:" = "Gemeinde_name", 
                       "LOR Area Code:" = "I_LOR_PRR")
       ) +
-      tm_shape(bike_lanes, name = "Bicycle infrastructure") +
+      tm_shape(bike_lanes_int, name = "Bicycle infrastructure") +
         tm_lines(
           id = "street", 
           col = "cat", lwd = 1.75, 
@@ -54,7 +57,7 @@ mod_map_accidents_server <- function(input, output, session){
           title.col = "Bicycle infrastructure:", 
           popup.vars = c("Bicycle infrastructure:" = "cat",  "Obligation of use:" = "mandatory")
         ) +
-      tm_shape(bike_accidents, name = "Bike accidents 2019") +
+      tm_shape(bike_accidents_int, name = "Bike accidents 2019") +
         tm_dots(
           id = "Category",
           size = .03, #col = "grey80",

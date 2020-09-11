@@ -75,7 +75,7 @@ mod_types_server <- function(input, output, session){
       color = c("#b03a47", "#293c55", "#6ab0b8", "#e98f6f")
     )
     
-    dat <- bike_accidents %>% 
+    dat <- xberlin::bike_accidents %>% 
       sf::st_drop_geometry() %>% 
       dplyr::filter(!is.na(Category)) %>% 
       dplyr::filter(Opponent_agg %in% input$opponent_select) %>%

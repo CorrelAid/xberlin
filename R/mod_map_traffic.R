@@ -46,45 +46,46 @@ mod_map_traffic_ui <- function(id){
 mod_map_traffic_server <- function(input, output, session){
   ns <- session$ns
   
-  sf::st_crs(traffic_summary) <- 3068 
+  traffic_summary_int <- xberlin::traffic_summary
+  sf::st_crs(traffic_summary_int) <- 3068 
     
-    output$map <- renderTmap({
-      
-      tm_shape(traffic_summary, name = "Ratio Map") + 
+  output$map <- renderTmap({
+    
+    tm_shape(traffic_summary_int, name = "Ratio Map") + 
+      tm_polygons(
+        id = "NAME.x", 
+        col = "road", 
+        title = "Bike Accidents on Bicycle Infrastructures", 
+        palette = rev(rcartocolor::carto_pal(n = 5, "ag_Sunset")),
+        breaks = c(1, 5, 10, 15, 20, 25, 30, Inf),
+        alpha = .75, border.col = "white", 
+        legend.reverse = TRUE,
+        textNA = "No Accidents in 2019"
+        )
+  })
+  observe({
+    if(input$data == "Accidents on roads") { var <- "road" }
+    if(input$data == "Accidents on bicycle infrastructure") { var <- "bike" }
+    if(input$data == "All bike accidents") { var <- "total" }
+    
+    tmapProxy("map", session, {
+      tm_shape(traffic_summary_int, name = "Ratio Map") +
         tm_polygons(
-          id = "NAME.x", 
-          col = "road", 
-          title = "Bike Accidents on Bicycle Infrastructures", 
+          id = "NAME.x",
+          col = var,
+          title = "Number of bike accidents",
           palette = rev(rcartocolor::carto_pal(n = 5, "ag_Sunset")),
           breaks = c(1, 5, 10, 15, 20, 25, 30, Inf),
-          alpha = .75, border.col = "white", 
+          alpha = .75, border.col = "white",
           legend.reverse = TRUE,
-          textNA = "No Accidents in 2019"
-          )
+          textNA = "No Accidents in 2019",
+          popup.vars = c("District:" = "Gemeinde_name",
+                         "Total number of bike accidents:" = "n_total", 
+                         "Accidents on bicycle infrastructure:" = "n_bike", 
+                         "Proportion:" = "perc_bike")
+        )
     })
-    observe({
-      if(input$data == "Accidents on roads") { var <- "road" }
-      if(input$data == "Accidents on bicycle infrastructure") { var <- "bike" }
-      if(input$data == "All bike accidents") { var <- "total" }
-      
-      tmapProxy("map", session, {
-        tm_shape(traffic_summary, name = "Ratio Map") +
-          tm_polygons(
-            id = "NAME.x",
-            col = var,
-            title = "Number of bike accidents",
-            palette = rev(rcartocolor::carto_pal(n = 5, "ag_Sunset")),
-            breaks = c(1, 5, 10, 15, 20, 25, 30, Inf),
-            alpha = .75, border.col = "white",
-            legend.reverse = TRUE,
-            textNA = "No Accidents in 2019",
-            popup.vars = c("District:" = "Gemeinde_name",
-                           "Total number of bike accidents:" = "n_total", 
-                           "Accidents on bicycle infrastructure:" = "n_bike", 
-                           "Proportion:" = "perc_bike")
-          )
-      })
-    })
+  })
 }
     
 ## To be copied in the UI

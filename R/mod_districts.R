@@ -84,8 +84,8 @@ mod_districts_server <- function(input, output, session){
       color = c("#b03a47", "#293c55", "#6ab0b8", "#e98f6f")
     )
     
-    if (input$data == "All accidents") { dat <- accidents_sum_all }
-    if (input$data == "Bike accidents") { dat <- accidents_sum_bikes }
+    if (input$data == "All accidents") { dat <- xberlin::accidents_sum_all }
+    if (input$data == "Bike accidents") { dat <- xberlin::accidents_sum_bikes }
     
     dat <- dat %>% 
       dplyr::filter(type %in% input$types_select) %>%
