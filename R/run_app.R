@@ -12,7 +12,7 @@ run_app <- function(
   with_golem_options(
     app = shinyApp(
       ui = app_ui, 
-      #options = list(launch.browser = .rs.invokeShinyWindowExternal),
+      options = list(launch.browser = .rs.invokeShinyWindowExternal),
       server = app_server
     ), 
     golem_opts = list(...)
