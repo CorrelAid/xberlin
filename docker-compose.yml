@@ -1,0 +1,6 @@
+version: "3.0"
+services:
+    xbikes:
+        build: "."
+        ports: 
+            - "3388:80"
