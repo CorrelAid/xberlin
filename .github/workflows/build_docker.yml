@@ -6,7 +6,7 @@ on:
       - master
 jobs:
   github-docker-cache:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       -
           name: Prepare
