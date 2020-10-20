@@ -12,12 +12,14 @@ jobs:
           name: Prepare
           id: prep
           run: |
-            GHCR_IMAGE=ghcr.io/${{ github.repository_owner }}/xberlin
+            GHCR_IMAGE=ghcr.io/correlaid/xberlin
             if [[ $GITHUB_REF == refs/tags/* ]]; then
               TAG=${GITHUB_REF#refs/tags/}
               VERSION=${TAG%-*}
+            else
+              VERSION="latest"
             fi
-            TAGS="${TAGS}${GHCR_IMAGE}:xberlin-${VERSION},"
+            TAGS="${TAGS}${GHCR_IMAGE}:${VERSION},"
             echo ::set-output name=ghcr_image::${GHCR_IMAGE}
             echo ::set-output name=tags::${TAGS}
       -
