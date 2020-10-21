@@ -1,6 +1,7 @@
 version: "3.0"
 services:
     xbikes:
-        build: "."
+        image: ghcr.io/correlaid/xberlin:latest
         ports: 
             - "3388:80"
+        restart: "unless-stopped"
