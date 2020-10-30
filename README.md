@@ -1,6 +1,6 @@
 # CorrelAid X Challenge Berlin
 
-A shiny app to explore acidents in Germany as well as bike lane types and bike accidents Berlin.
+A shiny app to explore accidents in Germany as well as bike lane types and bike accidents Berlin.
 
 Created for the CorrelAidX Challenge 2020 *“Analysing and visualising German regional statistics with datenguidepy”* by Cédric Scherer, Andreas Neumann, Saleh Hamed & Steffen Reinhold as contribution by CorrelAidX Berlin.
 
@@ -10,7 +10,7 @@ Created for the CorrelAidX Challenge 2020 *“Analysing and visualising German r
 
 [Link to shinyapps.io](https://berlinbikes.correlaid.org/)
 
-(The app is only optimized fordesktop use. Please be patient, loading the data takes some time.)
+(The app is only optimized for desktop use. Please be patient, loading the data takes some time.)
 
 #
 
