@@ -8,9 +8,9 @@ Created for the CorrelAidX Challenge 2020 *“Analysing and visualising German r
 
 ### View the app online
 
-[Link to shinyapps.io](https://cedric-scherer.shinyapps.io/xberlin/)
+[Link to shinyapps.io](https://berlinbikes.correlaid.org/)
 
-(The app might or might not work depending on how many people have recently visited the page. Sorry, we are very limited in memory unfortunately. If the app doesn't load, please try it again at a later point or install the package as explained below.)
+(The app is only optimized fordesktop use. Please be patient, loading the data takes some time.)
 
 #
 
