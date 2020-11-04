@@ -33,3 +33,4 @@ traffic_summary <-
                 total, perc_bike, perc_road, n_bike, n_road, n_total)
 
 usethis::use_data(traffic_summary, overwrite = TRUE)
+

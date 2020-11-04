@@ -1,6 +1,6 @@
 ## code to prepare `bike_lanes` dataset goes here
 
-link <- "https://tsb-opendata.s3.eu-central-1.amazonaws.com/radverkehrsanlagen/Radverkehrsanlagen.geojson.zip"
+link <- "https://tsb-opendata.s3.eu-central-1.amazonaws.com/0_archive/radverkehrsanlagen/Radverkehrsanlagen.geojson.zip"
 temp <- tempfile()
 download.file(link, temp)
 bike_lanes <- geojsonsf::geojson_sf(unz(temp, "Radverkehrsanlagen.geojson"))
