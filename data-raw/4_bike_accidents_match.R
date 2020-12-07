@@ -3,6 +3,17 @@
 ## change TZ to have English labels for month and weekday
 Sys.setlocale("LC_TIME", "C")
 
+## download shapefile if needed
+if (!file.exists("data-raw/Unfallorte2019/Shapefile/Unfallorte2019_LinRef.shp")) {
+  download.file(
+    url = 'https://www.opengeodata.nrw.de/produkte/transport_verkehr/unfallatlas/Unfallorte2019_EPSG25832_Shape.zip',
+    destfile = 'data-raw/Unfallorte2019.zip', 
+    method = 'curl'
+  )
+  
+  unzip('data-raw/Unfallorte2019.zip', exdir = 'data-raw/Unfallorte2019')
+}
+
 ## load accident data and keep only bike accidents in Berlin
 bike_accidents_19 <- 
   sf::read_sf(dsn = "data-raw/Unfallorte2019/Shapefile/Unfallorte2019_LinRef.shp") %>% 
