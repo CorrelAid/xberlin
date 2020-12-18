@@ -46,7 +46,7 @@ mod_districts_ui <- function(id){
       ),
       shinycssloaders::withSpinner(echarts4r::echarts4rOutput(ns("bars"), height = "50vh")),
       br(), br(),
-      pageButtonDown("Next: Explore Bike Accidents with Injuries and Bicycle Infrastructures in Berlin", style = "color:#2d896e;font-family:'Bebas Neue', serif;font-size:12pt;"),
+      pageButtonDown("Next: Explore Reported Bike Accidents with Injuries and Bicycle Infrastructures in Berlin", style = "color:#2d896e;font-family:'Bebas Neue', serif;font-size:1.65vw;"),
       h3(class = "source footer",
          "Source: Statistische Ämter des Bundes und der Länder via", tags$a(href="https://unfallatlas.statistikportal.de/_opendata2020.html", "Unfallatlas"))
     )

@@ -39,7 +39,7 @@ mod_intro_ui <- function(id){
    ", the relevant areal unit for data collection and planning in Berlin, these questions are explored on the following pages."
   ),
   br(),
-  pageButtonDown("Start!", style = "color:#11a579;font-family:'Bebas Neue', serif;font-size:18pt;")
+  pageButtonDown("Start!", style = "color:#11a579;font-family:'Bebas Neue', serif;font-size:1.65vw;")
  )
 }
   

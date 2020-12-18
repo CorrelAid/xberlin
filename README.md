@@ -51,7 +51,7 @@ At the same time, cyclists are the most at-risk group of all traffic participant
 
 While many people want to switch to cycling, safety concerns are deterring many people from using bikes more often. Perceived and actual risk of biking is a [key determinant in mobility decisions](https://nationaler-radverkehrsplan.de/de/forschung/schwerpunktthemen/subjektive-sicherheit-im-radverkehr). The importance ofthese risk considerations can be seen during the Corona epidemic when commuters [have switched from public transit](https://www.adac.de/verkehr/standpunkte-studien/mobilitaets-trends/corona-mobilitaet/) (where infection seems more likely) to [cars](https://www.handelsblatt.com/unternehmen/industrie/mobilitaet-zurueck-zum-individualverkehr-in-der-krise-waechst-die-lust-am-eigenen-auto/25799626.html) and [bicycles](https://www.zeit.de/mobilitaet/2020-09/radfahrer-coronavirus-fahrrad-boom-staedte-zahlen-verkehr). To get people on the bike, safety has therefore to be improved. The recent change in mobility patters during the Corona epidemic has further increased the need to improve bike safety. But first, we need to understand where and why cyclists are at risk of having accidents.
 
-Using publicly available data on accidents with injuries from the [German Federal Statistical Office](ttps://www.destatis.de/EN/Home/_node.html) — provided by the [`datenguidepy`](https://datenguidepy.readthedocs.io/en/latest/readme/) wrapper and the [“Unfallatlas”](https://unfallatlas.statistikportal.de/_opendata2020.html) — as well as information on [bicycle infrastructure](https://data.technologiestiftung-berlin.de/dataset/radverkehrsanlagen) and traffic cells(https://data.technologiestiftung-berlin.de/dataset/teil_verkehrszellen), the relevant areal unit for data collection and planning in Berlin, these questions are explored on the following pages. 
+Using publicly available data on accidents with injuries from the [German Federal Statistical Office](ttps://www.destatis.de/EN/Home/_node.html) — provided by the [`datenguidepy`](https://datenguidepy.readthedocs.io/en/latest/readme/) wrapper and the [“Unfallatlas”](https://unfallatlas.statistikportal.de/_opendata2020.html) — as well as information on [bicycle infrastructure](https://data.technologiestiftung-berlin.de/dataset/radverkehrsanlagen) and traffic cells(https://data.technologiestiftung-berlin.de/dataset/teil_verkehrszellen), the relevant areal unit for data collection and planning in Berlin, these questions are explored on the following pages.
 
 ---
 
@@ -105,3 +105,18 @@ Using publicly available data on accidents with injuries from the [German Federa
 #### Slide 9: Methodology & Future Steps
 
 <img src="./inst/app/www/preview/slide_9.png" width="80%" />
+
+
+## Potential sources to calculate risks
+
+* [Noise level data from FIS Broker](https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=a_07_05_11fassadpeg@senstadt&type=FEED)
+  + open source
+  + large data set
+  + separate info for overall, traffic, metro, flight noise
+  + **problematic: areas without measurements**
+* [Fahrradbarometer](https://www.berlin.de/sen/uvk/verkehr/verkehrsplanung/radverkehr/weitere-radinfrastruktur/zaehlstellen-und-fahrradbarometer/#barometer) ([Map](https://www.berlin.de/sen/uvk/verkehr/verkehrsplanung/radverkehr/weitere-radinfrastruktur/zaehlstellen-und-fahrradbarometer/karte/))
+  + open source
+  + 15 counter points
+  
+
+## Code of Conduct

@@ -11,10 +11,11 @@ mod_map_traffic_ui <- function(id){
   ns <- NS(id)
   fullPage::pageContainer(
     tags$style(type = "text/css", 
-               "strong {font-weight:600;} 
-               div.info.legend.leaflet-control {text-align:left; font-family:'Bebas Neue', sans-serif;} 
-               div.leaflet-control-layers-expanded {text-align:left;}
-               div.leaflet-touch .leaflet-control-attribution {font-family:'Arbutus Slab', serif;}"),
+               "div.strong {font-weight:300;} 
+               div.span {font-weight:300;}
+               div.info.legend.leaflet-control {text-align:left; font-family:'Bebas Neue', sans-serif; font-size:1.15vw;} 
+               div.leaflet-control-layers-expanded {text-align:left; font-size:1.15vw;}
+               div.leaflet-touch .leaflet-control-attribution {font-family:'Arbutus Slab', serif; font-size:.9vw;}"),
     fluidRow(
       column(2),
       column(
@@ -32,7 +33,7 @@ mod_map_traffic_ui <- function(id){
     ),
     shinycssloaders::withSpinner(tmapOutput(ns("map"), height = 530)),
     br(),
-    pageButtonDown("Curious about the project? Read more about our motivation and methodology!", style = "color:#2d896e;font-family:'Bebas Neue', serif;font-size:12pt;"),
+    pageButtonDown("Curious about the project? Read more about our motivation and methodology!", style = "color:#2d896e;font-family:'Bebas Neue', serif;font-size:1.65vw;"),
     h3(class = "source footer",
        "Source: Statistische Ämter des Bundes und der Länder via", tags$a(href="https://unfallatlas.statistikportal.de/_opendata2020.html", "Unfallatlas"), "• Geoportal Berlin via", tags$a(href="https://data.technologiestiftung-berlin.de/", "Technologiestiftung Berlin"))
   )

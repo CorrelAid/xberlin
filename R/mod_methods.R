@@ -11,8 +11,8 @@ mod_methods_ui <- function(id){
  ns <- NS(id)
  fullPage::pageContainer(
    tags$style(type = "text/css",
-              "strong {font-weight:400;font-size:14px;font-family:'Bebas Neue', sans-serif;}
-               li {color:#063a2b; font-family:'Arbutus Slab', serif; font-size:13px;}
+              "strong {font-weight:400;font-size:1.15vw;font-family:'Bebas Neue', sans-serif;}
+               li {color:#063a2b; font-family:'Arbutus Slab', serif; font-size:.85vw;}
                a {color: #2d896e;}"),
    h1(class = "header shadow-light",
     "Methodology"), 

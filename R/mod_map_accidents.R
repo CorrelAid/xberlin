@@ -12,14 +12,14 @@ mod_map_accidents_ui <- function(id){
   ns <- NS(id)
   fullPage::pageContainer(
     tags$style(type = "text/css", 
-               "strong {font-weight:600;} 
-               div.info.legend.leaflet-control {text-align:left; font-family:'Bebas Neue', sans-serif;} 
-               div.leaflet-control-layers-expanded {text-align:left;}
-               div.leaflet-touch .leaflet-control-attribution {font-family:'Arbutus Slab', serif;}
-               div.span {font-weight: 400;}"),
+               "strong {font-weight:300;} 
+               span {font-weight:300;}
+               div.info.legend.leaflet-control {text-align:left; font-family:'Bebas Neue', sans-serif; font-size:1.15vw; font-weight:300;} 
+               div.leaflet-control-layers-expanded {text-align:left; font-size:1.15vw; font-weight:300;}
+               div.leaflet-touch .leaflet-control-attribution {font-family:'Arbutus Slab', serif; font-size:.9vw;}"),
     shinycssloaders::withSpinner(tmapOutput(ns("map"), height = 600)),
     br(),
-    pageButtonDown("Next: Compare Bike Accidents with Injuries in Berlin by Bicycle Infrastructure and Opponent", style = "color:#2d896e;font-family:'Bebas Neue', serif;font-size:12pt;"),
+    pageButtonDown("Next: Compare Reported Bike Accidents with Injuries by Bicycle Infrastructure and Opponent", style = "color:#2d896e;font-family:'Bebas Neue', serif;font-size:1.65vw;"),
     h3(class = "source footer",
        "Source: Statistische Ämter des Bundes und der Länder via", tags$a(href="https://unfallatlas.statistikportal.de/_opendata2020.html", "Unfallatlas"), "• Geoportal Berlin via", tags$a(href="https://data.technologiestiftung-berlin.de/", "Technologiestiftung Berlin"))
   )

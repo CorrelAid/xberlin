@@ -6,10 +6,23 @@
   font-family: 'Bebas Neue', sans-serif;
 }
 
+h2{
+  font-size: 2.8vw;
+}
+
+h3{
+  font-size: 2.3vw;
+}
+
 p{
   color: #063a2b;
   font-family: 'Arbutus Slab', serif;
-  font-size: 15px;
+  font-size: 1.15vw;
+}
+
+a{
+  color: #11a579;
+  font-family: 'Arbutus Slab', serif;
 }
 
 em{
@@ -30,65 +43,60 @@ code{
   font-family: 'Overpass Mono', monospace;
 }
 
-a{
-  color: #11a579;
-  font-family: 'Arbutus Slab', serif;
-}
-
 .title{
   color: #11a579;
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 62px;
+  font-size: 7vw;
 }
 
 .header{
   color: #11a579;
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 42px;
+  font-size: 4vw;
 }
 
 .subtitle{
   color: #063a2b;
-  font-size: 62px;
+  font-size: 5vw;
   font-weight: 700;
 }
 
 .caption{
   color: #7b8b84;
-  font-size: 20px;
+  font-size: 2vw;
 }
 
 .about{
   color: #ebebeb;
   font-family: 'Arbutus Slab', serif;
-  font-size: 15px;
+  font-size: 1.4vw;
 }
 
 .source{
   color: #063a2b;
   font-family: 'Arbutus Slab', serif;
-  font-size: 10px;
+  font-size: .9vw;
   text-align: left;
 }
 
 .correl{
   color: #7b8b84;
   font-family: 'Arbutus Slab', serif;
-  font-size: 14px;
+  font-size: 1.15vw;
 }
 
 .methods{
   color: #063a2b;
   font-family: 'Arbutus Slab', serif;
-  font-size: 13px;
+  font-size: 1vw;
 }
 
 .shadow-dark{
-  text-shadow: 0px 2px 2px rgba(47, 47, 47, 1);
+  text-shadow: 0vw .2vw .2vw rgba(47, 47, 47, 1);
 }
 
 .shadow-light{
-  text-shadow: 0px 1.3px 1.3px rgb(255, 255, 255);
+  text-shadow: 0vw .1vw .1vw rgb(255, 255, 255);
 }
 
 .link{
@@ -103,15 +111,28 @@ a{
 .top{
   position: fixed;
   width: 100%;
-  top: 30px;
+  top: 1.4vw;
 }
 
 .footer{
   position: fixed;
   width: 100%;
-  bottom: 10px;
+  bottom: .25vw;
 }
 
 .dark{
   color: #2f2f2f;
+}
+
+.control-label{
+  font-size: 1.15vw;
+  font-weight: 300;
+}
+
+.item{
+  font-size: 1.15vw;
+}
+
+.btn{
+  font-size: 1.15vw;
 }

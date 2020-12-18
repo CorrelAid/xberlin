@@ -11,7 +11,7 @@ mod_cities_ui <- function(id){
   ns <- NS(id)
   fullPage::pageContainer(
     pageContainer(
-      h2("Accidents with injuries through time in major German cities"),
+      h2("Trends in reported accidents with injuries in major German cities"),
       br(),
       fluidRow(
         column(
@@ -33,7 +33,7 @@ mod_cities_ui <- function(id){
       ),
       shinycssloaders::withSpinner(echarts4r::echarts4rOutput(ns("trend"), height = "50vh")),
       br(), br(),
-      pageButtonDown("Next: Who is most frequently involved in accidents with injuries in Berlin?", style = "color:#2d896e;font-family:'Bebas Neue', serif;font-size:12pt;"),
+      pageButtonDown("Next: Who is most frequently involved in accidents with injuries in Berlin?", style = "color:#2d896e;font-family:'Bebas Neue', serif;font-size:1.65vw;"),
       h3(class = "source footer",
          "Source: Statistische Ämter des Bundes und der Länder via", tags$a(href="https://datenguidepy.readthedocs.io/en/latest/readme/", code("datenguidepy")))
     )

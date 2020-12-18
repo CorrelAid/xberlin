@@ -11,7 +11,7 @@ mod_types_ui <- function(id){
 ns <- NS(id)
   fullPage::pageContainer(
     pageContainer(
-      h2("Bike Accidents in Berlin in 2019 by Bicycle Infrastructure and Opponent"),
+      h2("Reported Bike Accidents in 2019 by Bicycle Infrastructure and Opponent"),
       br(),
       fluidRow(
         column(
@@ -37,7 +37,7 @@ ns <- NS(id)
       ),
       shinycssloaders::withSpinner(echarts4r::echarts4rOutput(ns("bars"), height = "50vh")),
       br(), br(),
-      pageButtonDown("Next: Explore areas of high bike accident rates", style = "color:#2d896e;font-family:'Bebas Neue', serif;font-size:12pt;"),
+      pageButtonDown("Next: Explore areas of high bike accident rates", style = "color:#2d896e;font-family:'Bebas Neue', serif;font-size:1.65vw;"),
       h3(class = "source footer",
          "Source: Statistische Ämter des Bundes und der Länder via", tags$a(href="https://unfallatlas.statistikportal.de/_opendata2020.html", "Unfallatlas"), "• Geoportal Berlin via", tags$a(href="https://data.technologiestiftung-berlin.de/", "Technologiestiftung Berlin"))
     )

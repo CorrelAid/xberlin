@@ -1,6 +1,6 @@
 Package: xberlin
 Title: Bike Accidents and Bicycle Infrastructure in Berlin
-Version: 0.1.0.0
+Version: 0.2.0.0
 Authors@R:
     c(
         person(given = "Cédric",

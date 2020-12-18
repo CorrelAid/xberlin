@@ -31,11 +31,11 @@ mod_about_ui <- function(id){
     br(), br(),
     p(class = "correl",
       "You want more?"),
-    tags$a(href="https://correlaid.org/en", "Learn more about CorrelAid"),
+    tags$a(href="https://correlaid.org/en", "Learn more about CorrelAid", style = "font-size:1.15vw;"),
     br(),
-    pageButtonDown("Read more about our methodology"),
+    pageButtonDown("Read more about our methodology", style = "font-size:1.15vw;"),
     br(),
-    tags$a(href="https://github.com/CorrelAid/xberlin", "Get the code from GitHub")
+    tags$a(href="https://github.com/CorrelAid/xberlin", "Get the code from GitHub", style = "font-size:1.15vw;")
   )
 }
     
