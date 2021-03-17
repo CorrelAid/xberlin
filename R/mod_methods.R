@@ -11,14 +11,15 @@ mod_methods_ui <- function(id){
  ns <- NS(id)
  fullPage::pageContainer(
    tags$style(type = "text/css",
-              "strong {font-weight:400;font-size:1.15vw;font-family:'Bebas Neue', sans-serif;}
-               li {color:#063a2b; font-family:'Arbutus Slab', serif; font-size:.85vw;}
+              "p {font-weight:300;font-size:.9vw;}
+               strong {font-weight:400;font-size:.95vw;font-family:'Bebas Neue', sans-serif;}
+               li {color:#063a2b; font-family:'Arbutus Slab', serif; font-size:.75vw;}
+               header shadow-light {font-size:1.05vw;}
                a {color: #2d896e;}"),
    h1(class = "header shadow-light",
     "Methodology"), 
   br(),
-  p(class = "methods",
-    "For our assessment we used 3 major data sources:"),
+  p("For our assessment we used 3 major data sources:"),
   tags$ul(
     tags$li(tags$a(href="https://datenguidepy.readthedocs.io/en/latest/readme/", code("datenguidepy")), 
             "– A Python package created by",
@@ -38,12 +39,9 @@ mod_methods_ui <- function(id){
             "in Berlin. Overall, there are 15 different bike lane categories. For our analysis, we aggregated the categories to five major classes, based on structural appearance (true bike paths, bike paths combined with sidewalk, bike lanes on roads and bus lanes) and whether the use is mandatory or advisory."), 
     br()
   ),
-  p(class = "methods",
-    strong("Step 1:"), "We matched the bike lane data with the accident data from 2019. We added a 4-meter buffer to each bike lane that is represented by a geographical linestring. Any accident point that falls within the buffer will be associated with the specific bike lane segment and therefore the bicycle infrastructure. All accidents that did not fall in any of the five categories was classified as “road only”. We used the merged data sets to explore the bike accidents and the bicycle infrastructure in Berlin."),
-  p(class = "methods",
-    strong("Step 2:"), "Next, we aimed to investigate the number of accidents that occurred on bike infrastructures as a proportion of all accidents and where the hotspots can be located. We matched the dataset obtained in Step 1 with 1,223 subtraffic cells. Most bike accidents happened on roads and not on bike infrastructure. However, in both cases the hotspots can be found near Berlin city centre."),
-  p(class = "methods",
-    strong("Future steps:"), "While this data already reveals interesting patterns, some open questions remain. In future steps we would like to explore whether and by how much certain bicycle infrastructures reduce the risks of accidents. For analyzing this question, we want to relate number of accidents with injuries in each subtraffic cell with the coverage of bike infrastructure and traffic volumes. Therefore, data sources on traffic volumes (by separate modes of transportation) are explored. Publicly available counter data is one potential source but there are only a few spots where traffic volumes were actually counted. Private providers of fitness or routing apps may be another source of data for traffic data.")
+  p(strong("Step 1:"), "We matched the bike lane data with the accident data from 2019. We added a 4-meter buffer to each bike lane that is represented by a geographical linestring. Any accident point that falls within the buffer will be associated with the specific bike lane segment and therefore the bicycle infrastructure. All accidents that did not fall in any of the five categories was classified as “road only”. We used the merged data sets to explore the bike accidents and the bicycle infrastructure in Berlin."),
+  p(strong("Step 2:"), "Next, we aimed to investigate the number of accidents that occurred on bike infrastructures as a proportion of all accidents and where the hotspots can be located. We matched the dataset obtained in Step 1 with 1,223 subtraffic cells. Most bike accidents happened on roads and not on bike infrastructure. However, in both cases the hotspots can be found near Berlin city centre."),
+  p(strong("Future steps:"), "While this data already reveals interesting patterns, some open questions remain. In future steps we would like to explore whether and by how much certain bicycle infrastructures reduce the risks of accidents. For analyzing this question, we want to relate number of accidents with injuries in each subtraffic cell with the coverage of bike infrastructure and traffic volumes. Therefore, data sources on traffic volumes (by separate modes of transportation) are explored. Publicly available counter data is one potential source but there are only a few spots where traffic volumes were actually counted. Private providers of fitness or routing apps may be another source of data for traffic data.")
  )
 }
   

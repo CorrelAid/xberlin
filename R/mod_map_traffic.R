@@ -11,11 +11,11 @@ mod_map_traffic_ui <- function(id){
   ns <- NS(id)
   fullPage::pageContainer(
     tags$style(type = "text/css", 
-               "div.strong {font-weight:300;} 
-               div.span {font-weight:300;}
-               div.info.legend.leaflet-control {text-align:left; font-family:'Bebas Neue', sans-serif; font-size:1.15vw;} 
+               "strong {font-weight:300; font-size:1.1vw;} 
+               span {font-weight:300; font-family:'Arbutus Slab', serif; font-size:.9vw;}
+               div.info.legend.leaflet-control {text-align:left; font-family:'Bebas Neue', sans-serif; font-weight:300; font-size:.95vw;} 
                div.leaflet-control-layers-expanded {text-align:left; font-size:1.15vw;}
-               div.leaflet-touch .leaflet-control-attribution {font-family:'Arbutus Slab', serif; font-size:.9vw;}"),
+               div.leaflet-touch .leaflet-control-attribution {font-family:'Arbutus Slab', serif; font-size:.8vw;}"),
     fluidRow(
       column(2),
       column(
@@ -23,7 +23,7 @@ mod_map_traffic_ui <- function(id){
         shinyWidgets::radioGroupButtons(
           inputId = ns("data"),
           label = "Choose set of bike accidents",
-          choices = c("All bike accidents", "Accidents on roads", "Accidents on bicycle infrastructure"),
+          choices = c("All Reported Bike Accidents", "Accidents on Roads", "Accidents on Bicycle Infrastructure"),
           checkIcon = list(
             yes = icon("ok",
                        lib = "glyphicon")
@@ -65,21 +65,21 @@ mod_map_traffic_server <- function(input, output, session){
         )
   })
   observe({
-    if(input$data == "Accidents on roads") { var <- "road" }
-    if(input$data == "Accidents on bicycle infrastructure") { var <- "bike" }
-    if(input$data == "All bike accidents") { var <- "total" }
+    if(input$data == "Accidents on Roads") { var <- "road" }
+    if(input$data == "Accidents on Bicycle Infrastructure") { var <- "bike" }
+    if(input$data == "All Reported Bike Accidents") { var <- "total" }
     
     tmapProxy("map", session, {
       tm_shape(traffic_summary_int, name = "Ratio Map") +
         tm_polygons(
           id = "NAME.x",
           col = var,
-          title = "Number of bike accidents",
+          title = "Number of Reported Bike Accidents",
           palette = rev(rcartocolor::carto_pal(n = 5, "ag_Sunset")),
           breaks = c(1, 5, 10, 15, 20, 25, 30, Inf),
           alpha = .75, border.col = "white",
           legend.reverse = TRUE,
-          textNA = "No Accidents in 2019",
+          textNA = "No Reported Accidents",
           popup.vars = c("District:" = "Gemeinde_name",
                          "Total number of bike accidents:" = "n_total", 
                          "Accidents on bicycle infrastructure:" = "n_bike", 

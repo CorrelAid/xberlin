@@ -24,6 +24,7 @@ mod_cities_ui <- function(id){
             inputId = ns("value"),
             label = "Choose a statistic",
             choices = c("per 10,000 inhabitants", "per 10,000 cars", "total"),
+            selected = "total",
             checkIcon = list(
               yes = icon("ok",
                          lib = "glyphicon")

@@ -11,12 +11,13 @@
 mod_map_accidents_ui <- function(id){
   ns <- NS(id)
   fullPage::pageContainer(
-    tags$style(type = "text/css", 
-               "strong {font-weight:300;} 
-               span {font-weight:300;}
-               div.info.legend.leaflet-control {text-align:left; font-family:'Bebas Neue', sans-serif; font-size:1.15vw; font-weight:300;} 
-               div.leaflet-control-layers-expanded {text-align:left; font-size:1.15vw; font-weight:300;}
-               div.leaflet-touch .leaflet-control-attribution {font-family:'Arbutus Slab', serif; font-size:.9vw;}"),
+    ## change setting in both map modules to become active!!!!!!!!!!!!!!!!!!!!!!
+    tags$style(type = "text/css",  
+               "strong {font-weight:300; font-size:1.1vw;} 
+               span {font-weight:300; font-family:'Arbutus Slab', serif; font-size:.9vw;}
+               div.info.legend.leaflet-control {text-align:left; font-family:'Bebas Neue', sans-serif; font-weight:300; font-size:.95vw;} 
+               div.leaflet-control-layers-expanded {text-align:left; font-size:1.15vw;}
+               div.leaflet-touch .leaflet-control-attribution {font-family:'Arbutus Slab', serif; font-size:.8vw;}"),
     shinycssloaders::withSpinner(tmapOutput(ns("map"), height = 600)),
     br(),
     pageButtonDown("Next: Compare Reported Bike Accidents with Injuries by Bicycle Infrastructure and Opponent", style = "color:#2d896e;font-family:'Bebas Neue', serif;font-size:1.65vw;"),
@@ -60,7 +61,7 @@ mod_map_accidents_server <- function(input, output, session){
       tm_shape(bike_accidents_int, name = "Bike accidents 2019") +
         tm_dots(
           id = "Category",
-          size = .03, #col = "grey80",
+          size = .04, #col = "grey80",
           col = "Light", palette = viridis::cividis(3, begin = .07, end = .93, direction = -1), border.col = "white",
           title = "Light condition:",
           popup.vars = c("Opponent:" = "Opponent",

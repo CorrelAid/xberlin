@@ -27,7 +27,7 @@ mod_about_ui <- function(id){
       em("Good Causes. Better Effects. Local Implementation.")),
     br(),
     p(class = "correl",
-      "CorrelAid is a network of young data analysts who want to change the world with a more inclusive, integrated and innovative approach to data analysis. The organization builds on three pillars: We take a pioneer role in analytics consulting for nonprofit organisations. We connect young, driven data scientists and offer them the possability to apply and develop their skills on real-world problems. Last but not least, we start a dialogue on the potential of data and analytics for the civic society."),
+      "CorrelAid is a non-partisan non-profit network of data science enthusiasts who want to change the world through data science. We dedicate our work to the social sector and those organizations that strive for making the world a better place. In order to improve data literacy in society, we share our knowledge within our network and beyond and are always looking for ways to broaden our horizons."),
     br(), br(),
     p(class = "correl",
       "You want more?"),

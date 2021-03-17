@@ -11,7 +11,7 @@ mod_districts_ui <- function(id){
   ns <- NS(id)
   fullPage::pageContainer(
     pageContainer(
-      h2("Participants involved in Accidents with Injuries in Berlin in 2019"),
+      h2("Participants involved in Reported Accidents with Injuries in Berlin in 2019"),
       br(),
       fluidRow(
         column(

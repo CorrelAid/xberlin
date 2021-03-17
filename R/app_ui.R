@@ -11,7 +11,7 @@ app_ui <- function(request) {
 
   options <- list(easing = "linear", scrollingSpeed = 400, keyboardScrolling = TRUE)
   
-  options(spinner.color="#11a579", spinner.size = .8, spinner.type = 7)
+  options(spinner.color = "#11a579", spinner.size = .8, spinner.type = 7)
   
   tagList(
     # Leave this function for adding external resources

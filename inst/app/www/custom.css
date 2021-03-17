@@ -6,12 +6,16 @@
   font-family: 'Bebas Neue', sans-serif;
 }
 
+h1{
+  font-size: 3.0vw;
+}
+
 h2{
-  font-size: 2.8vw;
+  font-size: 2.5vw;
 }
 
 h3{
-  font-size: 2.3vw;
+  font-size: 2.2vw;
 }
 
 p{
@@ -46,7 +50,7 @@ code{
 .title{
   color: #11a579;
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 7vw;
+  font-size: 6vw;
 }
 
 .header{
@@ -57,7 +61,7 @@ code{
 
 .subtitle{
   color: #063a2b;
-  font-size: 5vw;
+  font-size: 4.5vw;
   font-weight: 700;
 }
 
@@ -69,7 +73,7 @@ code{
 .about{
   color: #ebebeb;
   font-family: 'Arbutus Slab', serif;
-  font-size: 1.4vw;
+  font-size: 1.3vw;
 }
 
 .source{
@@ -125,7 +129,7 @@ code{
 }
 
 .control-label{
-  font-size: 1.15vw;
+  font-size: 1vw;
   font-weight: 300;
 }
 
