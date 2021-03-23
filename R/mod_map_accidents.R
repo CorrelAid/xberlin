@@ -34,9 +34,9 @@ mod_map_accidents_server <- function(input, output, session){
   
   output$map <- renderTmap({
     
-    traffic_cells_int <- xberlin::traffic_cells
-    bike_lanes_int <- xberlin::bike_lanes
-    bike_accidents_int <- xberlin::bike_accidents
+    traffic_cells_int <- sf::st_as_sf(as.data.frame(xberlin::traffic_cells))
+    bike_lanes_int <- sf::st_as_sf(as.data.frame(xberlin::bike_lanes))
+    bike_accidents_int <- sf::st_as_sf(as.data.frame(xberlin::bike_accidents))
     
     sf::st_crs(traffic_cells_int) <- 3068 
     sf::st_crs(bike_lanes_int) <- 3068 
